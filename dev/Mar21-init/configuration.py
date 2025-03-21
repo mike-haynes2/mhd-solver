@@ -27,8 +27,7 @@ eps0 = constants.epsilon_0
 adiabatic_index = 2.     # gamma (1 + 2 / DOF)
 # (FOR pickup process:)
 # distribution properties for the injected population
-# constant value for flow-aligned magnetic field B:
-B_x_perscription = 3./4.    # nT    (see Equation 4.4 in Balbas et al)
+
 
 
 
@@ -61,14 +60,27 @@ Tmax = N_Tmax*dt
 
 
 
-
 ## Initial conditions
 ################################################################################
 ################################################################################
 # initialize spatial grid 
 
 Xs = np.arange(start=X_lower, stop=X_upper,step=dx)
+
+
+# placeholder for each quantity (u, B, p, etc)
 w_t0 = np.ones_like(Xs)
+# define boundary conditions to be enforced:
+# CONSTANT boundary values:
+# value at lower endpoint
+w_t0_x0 = 0.
+# value at upper endpoint
+w_t0_xM = 0.
+# constant value for flow-aligned magnetic field B:
+B_x_perscription = 3./4.    # nT    (see Equation 4.4 in Balbas et al)
+# initial value for density
+
+
 
 
 
@@ -81,14 +93,14 @@ def f_continuity_1D(rho, u_vector):
     u_x = np.array(u_vector)[0]
     return (rho*u_x)
 # EOM / Navier Stokes:
-def f_NS_1D(rho, u_vector, B_vector, p):
+def f_NS_1D(u_vector, rho, B_vector, p):
     pstar = p + (np.dot(B_vector,B_vector)/mu0)
     xhat = np.array([1.,0.,0.])
     u_x = np.dot(np.array(u_vector),xhat)
     B_x = np.dot(np.array(B_vector),xhat)
     return (rho * u_x * u_vector - B_x * B_vector + pstar * xhat)
 # Faraday's Law for MHD (dB/dt = - curl E = curl(u x B) = div(B tensor u - u tensor B))
-def f_faraday_1D(u_vector, B_vector):
+def f_faraday_1D(B_vector, u_vector):
     By = u_vector[0] * B_vector[1] - B_vector[0] * u_vector[1]
     Bz = u_vector[0] * B_vector[2] - B_vector[0] * u_vector[2]
     return np.array([0.,By,Bz])
@@ -106,4 +118,18 @@ def calculate_p_adiabatic(rho,gamma,reference_rho=1.,reference_p=1.):
 ################################################################################
 ################################################################################
 
+
+
+
+
+## define (untouched) quantities for solver based on above definitions:
+################################################################################
+################################################################################
+all_quantities_t0_with_adiabatic = [rho0, u0, B0, e0, p0]
+all_functions_with_adiabatic = [f_continuity_1D, f_NS_1D, f_faraday_1D, f_energy_1D, calculate_p_adiabatic]
+
+all_quantities_t0 = all_quantities_t0_with_adiabatic[0:3]
+all_functions = all_functions_with_adiabatic[0:3]
+################################################################################
+################################################################################
 
