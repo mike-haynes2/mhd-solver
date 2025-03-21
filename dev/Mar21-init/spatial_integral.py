@@ -10,8 +10,8 @@ def Spatial_Integral(w_n): # time is given by variable n
     """
 
     # create array to store new values
-    w_np1 = np.array(len(w_n))
-    # apply boundary conditions (assumes time-independency)
+    w_np1 = np.zeros_like(w_n)
+    # apply boundary conditions (assumes time-independency of boundary conditions)
     w_np1[0] = w_n[0]
     w_np1[-1] = w_n[-1]
 

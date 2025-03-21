@@ -7,6 +7,8 @@ def MinMod(a, b, c):
         return np.sign(a) * minimum
     else: 
         return 0
+    
+### NEED 3D MINMOD FUNCTION
 
 if __name__ == '__main__':
     print(MinMod(-1.44, -8.5, -3.6)) # returns -1.44

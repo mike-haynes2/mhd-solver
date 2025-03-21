@@ -1,7 +1,7 @@
 import numpy as np
 import configuration as config
 from minmod import MinMod
-from deltas import deltas
+from deltas import Deltas
 
 
 
@@ -14,6 +14,8 @@ def construct_poly_approx(wbar):
         else:
             poly_approx = wbar[j] + (1./2.) * config.alpha * (wbar[j] - wbar[j-1])
     return poly_approx
+
+### 3D RECONSTRUCT POLYNOMIAL
 
 
 ## Functions to be called after constructing cell averages into polynomial approximations (which are sampled at the grid points)

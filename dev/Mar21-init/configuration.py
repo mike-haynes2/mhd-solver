@@ -145,8 +145,8 @@ def calculate_p_adiabatic(rho,gamma,reference_rho=1.,reference_p=1.):
 all_quantities_t0_with_adiabatic = [rho0, u0, B0, energy0, p0]
 all_functions_with_adiabatic = [f_continuity_1D, f_NS_1D, f_faraday_1D, f_energy_1D, calculate_p_adiabatic]
 
-all_quantities_t0 = all_quantities_t0_with_adiabatic[0:3]
-all_functions = all_functions_with_adiabatic[0:3]
+all_quantities_t0 = all_quantities_t0_with_adiabatic[0:4]
+all_functions = all_functions_with_adiabatic[0:4]
 ################################################################################
 ################################################################################
 
