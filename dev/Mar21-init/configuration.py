@@ -2,6 +2,7 @@ import numpy as np
 import math as m
 from scipy import constants
 
+from reconstruct import reconstruct_pressure
 
 # ALL parameters, state equations, and other system / solver configuration info 
 
@@ -51,7 +52,7 @@ X_lower = -1.
 X_upper = 1.
 # time evolution (max time)
 # in timesteps:
-N_Tmax = 1000
+N_Tmax = 100
 # in seconds:
 Tmax = N_Tmax*dt
 
@@ -80,8 +81,24 @@ w_t0_xM = 0.
 B_x_perscription = 3./4.    # nT    (see Equation 4.4 in Balbas et al)
 # initial value for density
 
+rho_const = 1.
 
+u_vector_const = np.zeros(3)
 
+By_const = 1.
+Bz_const = 0.
+B_vector_const = np.array([B_x_perscription,By_const, Bz_const])
+
+e_const = 1.
+
+rho0 = w_t0 * rho_const
+u0 = np.outer(w_t0,u_vector_const)
+B0 = np.outer(w_t0,B_vector_const)
+energy0 = w_t0 * e_const
+
+# comment out if not
+#p0 = reconstruct_pressure(rho0,u0,B0,energy0)
+p0 = 1.
 
 
 ## MHD System
@@ -125,7 +142,7 @@ def calculate_p_adiabatic(rho,gamma,reference_rho=1.,reference_p=1.):
 ## define (untouched) quantities for solver based on above definitions:
 ################################################################################
 ################################################################################
-all_quantities_t0_with_adiabatic = [rho0, u0, B0, e0, p0]
+all_quantities_t0_with_adiabatic = [rho0, u0, B0, energy0, p0]
 all_functions_with_adiabatic = [f_continuity_1D, f_NS_1D, f_faraday_1D, f_energy_1D, calculate_p_adiabatic]
 
 all_quantities_t0 = all_quantities_t0_with_adiabatic[0:3]

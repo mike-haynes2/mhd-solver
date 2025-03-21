@@ -31,7 +31,9 @@ def reconstruct_energy(energy):
     return energy
 
 def reconstruct_pressure(rho, u_vector, B_vector, energy):
-    fact = (config.adiabatic_index - 1.)
-    p = fact * (energy - ( ((1./2.)*rho*np.dot(u_vector,u_vector)) +  (np.dot(B_vector,B_vector)/(2.*config.mu0))) )
+    p = np.zeros_like(rho)
+    for i in range(len(p)):
+        fact = (config.adiabatic_index - 1.)
+        p[i] = fact * (energy[i] - ( ((1./2.)*rho[i]*np.dot(u_vector[i],u_vector[i])) +  (np.dot(B_vector[i],B_vector[i])/(2.*config.mu0))) )
     return p
 
