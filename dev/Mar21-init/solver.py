@@ -1,27 +1,25 @@
-# 1. conservation law with initial conditions
-# spatial step j, time step n. u(x, 0) = w(x, 0)
-# We will use equation 2.5 to advance cell averages
-# 2.1. calculate the spatial integral using the polynomial at the previous step
-# 2.2. calculate the time integral using ###
-# 3. 
-
-import math
 import numpy as np
 import matplotlib as plt
-from minmod import MinMod
+import configuration as config
+from spatial_integral import Spatial_Integral
+from temporal_integral import Temporal_Integral
 
-t0 = 0
-delta_t = 0.1
-delta_x = 1
-grid_range = 100
+def main():
+    """runs the solver"""
 
-# w = [0 for i in range()]
+    # initialize time and grids
+    t = 0
+    w_t = config.w_t0
+    w_T = [w_t] # store history
 
-# delta_plus = w[j+1] - w[j]
-# delta_minus = w[j] - w[j-1]
-# delta_0 = 1/2 * (delta_plus + delta_minus)
+    # run loop to step through time in steps dt
+    while t < config.Tmax:
+        w_tp1 = Spatial_Integral(w_t) - Temporal_Integral(w_t, f)
+        copy = w_tp1.deepcopy()
+        w_T += [copy]
+        w_t = copy
+        t += config.dt
     
-
 if __name__ == '__main__':
     pass
 
