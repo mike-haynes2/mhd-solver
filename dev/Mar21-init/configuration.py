@@ -179,7 +179,7 @@ def f_energy_1D(Energy, inputs):
     u_vector = inputs[0]; B_vector=inputs[1]; p=inputs[2]
     pstar = p + ((np.linalg.norm(B_vector,axis=1) ** 2.)/(2.*mu0)) 
     f1 = (Energy + pstar) * u_vector[:,0]
-    f2 = B_vector[0] * np.dot(u_vector,B_vector)
+    f2 = B_vector[:,0] * np.einsum('ij,ij->i', u_vector, B_vector)
     return (f1 - f2)
 
 
@@ -188,10 +188,10 @@ def calculate_p_adiabatic(rho,gamma,reference_rho=1.,reference_p=1.):
     c = (rho/reference_rho) ** gamma
     return (reference_p * c)
 
-def animation(time_data, name):
+def animate(time_data, name):
     fig, ax = plt.subplots()
     line, = ax.plot(time_data[0], alpha=0.7)
-    ax.set_ylim(np.max(time_data) - 1, np.max(time_data) + 1)  # if it crashes on this line just comment it out
+    # ax.set_ylim(np.max(time_data) - 1, np.max(time_data) + 1)  # if it crashes on this line just comment it out
     ax.set_xlabel("Position")
     ax.set_ylabel(name)
 

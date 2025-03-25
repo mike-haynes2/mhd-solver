@@ -96,14 +96,14 @@ def main():
 
         # iterate time
         t += config.dt
-        
+
     ###########plotting animation stuff############
-    config.animation(rho_t, 'density')
-    config.animation(u_t[0,:], 'velocity_x')        # need to make sure it is the right value I am grabbing
-    config.animation(u_t[1,:], 'velocity_y')        # need to make sure it is the right value I am grabbing
-    config.animation(B_t[1, :], 'magnetic_field_y') # need to make sure it is the right value I am grabbing
-    config.animation(energy_t, 'energy')
-    config.animation(p_t, 'pressure')
+    config.animate(rho_t, 'density')
+    config.animate(u_t[0,:], 'velocity_x')        # need to make sure it is the right value I am grabbing
+    config.animate(u_t[1,:], 'velocity_y')        # need to make sure it is the right value I am grabbing
+    config.animate(B_t[1, :], 'magnetic_field_y') # need to make sure it is the right value I am grabbing
+    config.animate(energy_t, 'energy')
+    config.animate(p_t, 'pressure')
 
 ################
 ### RUN MAIN ###
