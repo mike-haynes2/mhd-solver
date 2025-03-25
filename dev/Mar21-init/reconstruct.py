@@ -1,25 +1,26 @@
 import numpy as np
 import configuration as config
-from minmod import MinMod
-from deltas import Deltas
+from minmod import MinMod, MinMod3D
+from deltas import Deltas, Deltas3D
 
 
 
 ## Function to construct the polynomial approximation from cell averages w_bar
 def construct_poly_approx(wbar):
+    poly_approx = np.zeros_like(wbar)
     for j in range(len(wbar)-1):
         if j != len(wbar)-2:
             Dplus, Dminus, D0 = Deltas(wbar[j],wbar[j-1],wbar[j+1])
-            poly_approx = wbar[j] + (1./2.) * MinMod(config.alpha * Dplus, D0, config.alpha * Dminus)
+            poly_approx[j] = wbar[j] + (1./2.) * MinMod(config.alpha * Dplus, D0, config.alpha * Dminus)
         else:
-            poly_approx = wbar[j] + (1./2.) * config.alpha * (wbar[j] - wbar[j-1])
+            poly_approx[j] = wbar[j] + (1./2.) * config.alpha * (wbar[j] - wbar[j-1])
     assert np.shape(wbar) == np.shape(poly_approx)
     return poly_approx
 
 
 ### 3D Reconstruct polynomial
 def construct_poly_approx_3D(wbar):
-    poly_approx = np.zeros((len(wbar),len(wbar[0])))
+    poly_approx = np.zeros_like(wbar)
     for j in range(len(wbar)-1):
         for k in range(len(wbar[j])):
             if j != len(wbar)-2:
@@ -37,7 +38,9 @@ def reconstruct_rho(rho):
     return rho
 
 def reconstruct_u_vector(u_vector, rho):
-    return (u_vector / rho)
+    r = rho[:,np.newaxis]
+    rh = 1./r
+    return np.multiply(u_vector,rh)
 
 def reconstruct_B_vector(B_vector):
     return B_vector

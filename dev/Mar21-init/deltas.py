@@ -4,7 +4,7 @@ def Deltas(w_j, w_jm1, w_jp1):
     """
     calculates delta_plus/minus/0 for some quantity q evaluated at timesteps j, j-1 and j+1
     """
-    print('w_j is', w_j)
+    # print('w_j is', w_j)
     delta_plus = w_jp1 - w_j
     delta_minus = w_j - w_jm1
     delta_0 = 1/2 * (delta_plus + delta_minus)

@@ -4,10 +4,6 @@ import matplotlib.animation as animation
 import configuration as config
 import reconstruct as recon
 from spatial_integral import Spatial_Integral
-from temporal_integral_rho import Temporal_Integral_Rho
-from temporal_integral_u import Temporal_Integral_U
-from temporal_integral_b import Temporal_Integral_B
-from temporal_integral_energy import Temporal_Integral_Energy
 from temporal_integral import Temporal_Integral
 
 ########################
@@ -19,10 +15,10 @@ def next_step(w_t, rho=0, u=0, B=0, p=0, variable=''):
     rho requires (vector) u
     """
 
-    w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_Rho(w_t, rho=rho, u=u, B=B, p=p, variable=variable) # update to take more variables
+    w_tp1 = Spatial_Integral(w_t, variable=variable) - Temporal_Integral(w_t, rho=rho, u=u, B=B, p=p, variable=variable) # update to take more variables
     # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral(w_t, u=u, variable='rho') # general case
-    w_tp1[0] = config.w_t0_x0
-    w_tp1[-1] = config.w_t0_xM
+    # w_tp1[0] = config.w_t0_x0
+    # w_tp1[-1] = config.w_t0_xM
     return w_tp1
 
 ############
@@ -56,30 +52,30 @@ def main():
                 # collect quantities (at time n) we will need to evaluate rho 
                 u_n = u_t[-1]
                 # iterate to the next time step, including polynomial construction
-                w_tp1 = recon.construct_poly_approx(next_step(quantity, u_n, 'rho'))
+                w_tp1 = recon.construct_poly_approx(next_step(quantity, u=u_n, variable='rho'))
                 # update all_quantities_t list with the most recent grid (overwrites previous time step)
-                all_quantities_t[rho] = w_tp1.deepcopy()
+                all_quantities_t[rho] = w_tp1.copy()
                 # append new grid to appropriate variable history list
-                rho_t.append(w_tp1.deepcopy())
+                rho_t.append(w_tp1.copy())
             elif i == u:
                 # collect quantities at time n
                 rho_n = rho_t[-2]
                 B_n = B_t[-1]
                 p_n = p_t[-1]
                 # iterate
-                w_tp1 = recon.construct_poly_approx(next_step(quantity, rho_n, B_n, p_n, 'u'))
+                w_tp1 = recon.construct_poly_approx_3D(next_step(quantity, rho=rho_n, B=B_n, p=p_n, variable='u'))
                 # reconstruct u using updated t+1 (n+1) rho value
                 rho_tp1 = all_quantities_t[rho]
                 w_tp1 = recon.reconstruct_u_vector(w_tp1, rho_tp1)
-                all_quantities_t[u] = w_tp1.deepcopy()
-                u_t.append(w_tp1.deepcopy())
+                all_quantities_t[u] = w_tp1.copy()
+                u_t.append(w_tp1.copy())
             elif i == B:
                 # collect quantities at time n
                 u_n = u_t[-2]
                 # iterate, etc.
-                w_tp1 = recon.construct_poly_approx(next_step(quantity, u_n, 'B'))
-                all_quantities_t[B] = w_tp1.deepcopy()
-                B_t.append(w_tp1.deepcopy())
+                w_tp1 = recon.construct_poly_approx_3D(next_step(quantity, u=u_n, variable='B'))
+                all_quantities_t[B] = w_tp1.copy()
+                B_t.append(w_tp1.copy())
             elif i == energy:
                 # collect quantities at time n
                 rho_n = rho_t[-2]
@@ -87,9 +83,9 @@ def main():
                 B_n = B_t[-2]
                 p_n = p_t[-1]
                 # iterate, etc.
-                w_tp1 = recon.construct_poly_approx(next_step(quantity, rho_n, u_n, B_n, p_n, 'energy'))
-                all_quantities_t[energy] = w_tp1.deepcopy()
-                energy_t.append(w_tp1.deepcopy())
+                w_tp1 = recon.construct_poly_approx(next_step(quantity, rho=rho_n, u=u_n, B=B_n, p=p_n, variable='energy'))
+                all_quantities_t[energy] = w_tp1.copy()
+                energy_t.append(w_tp1.copy())
         
         # handle the pressure update
         rho_np1 = all_quantities_t[rho]

@@ -127,53 +127,57 @@ energy0 = p0 / (adiabatic_index - 1) + .5 * B_square / mu0 # + .5 * rho * u but 
 ################################################################################
 # 1-D equations (see eqns 4.1-4.2 in Balbas et al)
 # continuity:
-def f_continuity_1D(rho, u_vector):
-    u_x = np.array(u_vector)[0]
-    return (rho*u_x)
-# EOM / Navier Stokes:
-def f_NS_1D(u_vector, rho, B_vector, p):
-    pstar = p + (np.dot(B_vector,B_vector)/mu0)
-    xhat = np.array([1.,0.,0.])
-    u_x = np.dot(np.array(u_vector),xhat)
-    B_x = np.dot(np.array(B_vector),xhat)
-    return (rho * u_x * u_vector - B_x * B_vector + pstar * xhat)
-# Faraday's Law for MHD (dB/dt = - curl E = curl(u x B) = div(B tensor u - u tensor B))
-def f_faraday_1D(B_vector, u_vector):
-    By = u_vector[0] * B_vector[1] - B_vector[0] * u_vector[1]
-    Bz = u_vector[0] * B_vector[2] - B_vector[0] * u_vector[2]
-    return np.array([0.,By,Bz])
-# energy equation
-def f_energy_1D(Energy, u_vector, B_vector, p):
-    pstar = p + (np.dot(B_vector,B_vector)/(2.*mu0))
-    f1 = (Energy + pstar) * u_vector[0]
-    f2 = B_vector[0] * np.dot(u_vector,B_vector)
-    return (f1 - f2)
-############### If we wanted to use only one time integration the files###############
-# def f_continuity_1D(rho, inputs):
-#     u_vector = inputs[1]
+# def f_continuity_1D(rho, u_vector):
 #     u_x = np.array(u_vector)[0]
 #     return (rho*u_x)
 # # EOM / Navier Stokes:
-# def f_NS_1D(u_vector, inputs):
-#     rho = inputs[0]; B_vector = inputs[1]; p = inputs[2]
+# def f_NS_1D(u_vector, rho, B_vector, p):
 #     pstar = p + (np.dot(B_vector,B_vector)/mu0)
 #     xhat = np.array([1.,0.,0.])
 #     u_x = np.dot(np.array(u_vector),xhat)
 #     B_x = np.dot(np.array(B_vector),xhat)
 #     return (rho * u_x * u_vector - B_x * B_vector + pstar * xhat)
 # # Faraday's Law for MHD (dB/dt = - curl E = curl(u x B) = div(B tensor u - u tensor B))
-# def f_faraday_1D(B_vector, inputs):
-#     u_vector = inputs[0]
+# def f_faraday_1D(B_vector, u_vector):
 #     By = u_vector[0] * B_vector[1] - B_vector[0] * u_vector[1]
 #     Bz = u_vector[0] * B_vector[2] - B_vector[0] * u_vector[2]
 #     return np.array([0.,By,Bz])
 # # energy equation
-# def f_energy_1D(Energy, inputs):
-#     u_vector = inputs[0]; B_vector=inputs[1]; p=inputs[2]
-#     pstar = p + (np.dot(B_vector,B_vector)/(2.*mu0)) 
+# def f_energy_1D(Energy, u_vector, B_vector, p):
+#     pstar = p + (np.dot(B_vector,B_vector)/(2.*mu0))
 #     f1 = (Energy + pstar) * u_vector[0]
 #     f2 = B_vector[0] * np.dot(u_vector,B_vector)
 #     return (f1 - f2)
+
+############### If we wanted to use only one time integration the files###############
+def f_continuity_1D(rho, inputs):
+    u_vector = inputs[0]
+    u_x = np.array(u_vector)[:,0]
+    return (rho*u_x)
+# EOM / Navier Stokes:
+def f_NS_1D(u_vector, inputs):
+    rho = inputs[0]; B_vector = inputs[1]; p = inputs[2]
+    pstar = p + ((np.linalg.norm(B_vector,axis=1) ** 2.)/(2.*mu0)) 
+    xhat = np.array([1.,0.,0.])
+    # u_x = np.dot(np.array(u_vector),xhat)
+    # B_x = np.dot(np.array(B_vector),xhat)
+    # print(np.shape(u_vector))
+    u_x = u_vector[:,0]
+    B_x = B_vector[:,0]
+    return (np.multiply(np.multiply(u_vector,u_x[:,np.newaxis]),rho[:,np.newaxis])- np.multiply(np.multiply(B_vector,B_x[:,np.newaxis]), pstar[:,np.newaxis]) )
+# Faraday's Law for MHD (dB/dt = - curl E = curl(u x B) = div(B tensor u - u tensor B))
+def f_faraday_1D(B_vector, inputs):
+    u_vector = inputs[0]
+    By = u_vector[0] * B_vector[1] - B_vector[0] * u_vector[1]
+    Bz = u_vector[0] * B_vector[2] - B_vector[0] * u_vector[2]
+    return np.array([0.,By,Bz])
+# energy equation
+def f_energy_1D(Energy, inputs):
+    u_vector = inputs[0]; B_vector=inputs[1]; p=inputs[2]
+    pstar = p + ((np.linalg.norm(B_vector,axis=1) ** 2.)/(2.*mu0)) 
+    f1 = (Energy + pstar) * u_vector[0]
+    f2 = B_vector[0] * np.dot(u_vector,B_vector)
+    return (f1 - f2)
 
 
 # adiabatic law
