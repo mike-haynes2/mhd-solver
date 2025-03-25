@@ -9,7 +9,7 @@ from deltas import Deltas
 def construct_poly_approx(wbar):
     for j in range(len(wbar)-1):
         if j != len(wbar)-2:
-            Dplus, Dminus, D0 = deltas(wbar[j],wbar[j-1],wbar[j+1])
+            Dplus, Dminus, D0 = Deltas(wbar[j],wbar[j-1],wbar[j+1])
             poly_approx = wbar[j] + (1./2.) * MinMod(config.alpha * Dplus, D0, config.alpha * Dminus)
         else:
             poly_approx = wbar[j] + (1./2.) * config.alpha * (wbar[j] - wbar[j-1])

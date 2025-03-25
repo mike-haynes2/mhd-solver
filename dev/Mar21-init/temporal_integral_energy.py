@@ -23,7 +23,7 @@ def Temporal_Integral_Energy(w_n, rho, u, B, p): # time is given by variable n
         
         ### f_j ###
         # calculate deltas
-        f_j = config.f_energy_1D(w_n[j], rho, u, B, p)
+        f_j = config.f_energy_1D(w_n[j], rho, u, B, p) #I do not think this needs rho called
         f_jm1 = config.f_energy_1D(w_n[j-1], rho, u, B, p)
         f_jp1 = config.f_energy_1D(w_n[j+1], rho, u, B, p)
         delta_plus_j, delta_minus_j, delta_0_j = Deltas(f_j, f_jm1, f_jp1)

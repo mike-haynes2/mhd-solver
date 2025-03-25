@@ -30,6 +30,7 @@ def Spatial_Integral(w_n): # time is given by variable n
 
         ### w_prime_jp1 ###
         if j == len(w_n)-2: # account for problematic j + 2 index
+            # it might be possible to just make an additional ghost cell
             w_prime_jp1 = (w_n[j+1] - w_n[j]) * config.alpha # use Euler backward ???still multiplying by alpha???
         else:
             delta_plus_jp1, delta_minus_jp1, delta_0_jp1 = Deltas(w_n[j+1], w_n[j], w_n[j+2])

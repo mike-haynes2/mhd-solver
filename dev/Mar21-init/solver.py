@@ -7,6 +7,7 @@ from temporal_integral_rho import Temporal_Integral_Rho
 from temporal_integral_u import Temporal_Integral_U
 from temporal_integral_b import Temporal_Integral_B
 from temporal_integral_energy import Temporal_Integral_Energy
+from temporal_integral_general import Temporal_Integral
 
 ########################
 ### HELPER FUNCTIONS ###
@@ -17,6 +18,7 @@ def next_step_rho(w_t, u):
     rho requires (vector) u
     """
     w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_Rho(w_t, u) # update to take more variables
+    # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral(w_t, u=u, variable='rho') # general case
     w_tp1[0] = config.w_t0_x0
     w_tp1[-1] = config.w_t0_xM
     return w_tp1
@@ -27,6 +29,7 @@ def next_step_u(w_t, rho, B, p): # update to take more variables
     u requires rho, (vector) B and p
     """
     w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_U(w_t, rho, B, p) # update to take more variables
+    # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral(w_t, rho=rho, B=B, p=p, variable='u')
     w_tp1[0] = config.w_t0_x0
     w_tp1[-1] = config.w_t0_xM
     return w_tp1
@@ -37,6 +40,7 @@ def next_step_B(w_t, u): # update to take more variables
     B requires (vector) u
     """
     w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_B(w_t, u) # update to take more variables
+    # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral(w_t, u=u, variable='b')
     w_tp1[0] = config.w_t0_x0
     w_tp1[-1] = config.w_t0_xM
     return w_tp1
@@ -47,6 +51,7 @@ def next_step_energy(w_t, rho, u, B, p): # update to take more variables
     energy requires rho, u, B, p
     """
     w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_Energy(w_t, rho, u, B, p) # update to take more variables
+    # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_Energy(w_t, rho=rho, u=u, B=B, p=p, variable='energy')
     w_tp1[0] = config.w_t0_x0
     w_tp1[-1] = config.w_t0_xM
     return w_tp1
