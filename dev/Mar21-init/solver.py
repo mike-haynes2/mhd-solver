@@ -8,51 +8,19 @@ from temporal_integral_rho import Temporal_Integral_Rho
 from temporal_integral_u import Temporal_Integral_U
 from temporal_integral_b import Temporal_Integral_B
 from temporal_integral_energy import Temporal_Integral_Energy
-from temporal_integral_general import Temporal_Integral
+from temporal_integral import Temporal_Integral
 
 ########################
 ### HELPER FUNCTIONS ###
 ########################
-def next_step_rho(w_t, u):
+def next_step(w_t, rho=0, u=0, B=0, p=0, variable=''):
     """
     calculates the next time step for some quantity q
     rho requires (vector) u
     """
-    w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_Rho(w_t, u) # update to take more variables
+
+    w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_Rho(w_t, rho=rho, u=u, B=B, p=p, variable=variable) # update to take more variables
     # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral(w_t, u=u, variable='rho') # general case
-    w_tp1[0] = config.w_t0_x0
-    w_tp1[-1] = config.w_t0_xM
-    return w_tp1
-
-def next_step_u(w_t, rho, B, p): # update to take more variables
-    """
-    calculates the next time step for some quantity q
-    u requires rho, (vector) B and p
-    """
-    w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_U(w_t, rho, B, p) # update to take more variables
-    # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral(w_t, rho=rho, B=B, p=p, variable='u')
-    w_tp1[0] = config.w_t0_x0
-    w_tp1[-1] = config.w_t0_xM
-    return w_tp1
-
-def next_step_B(w_t, u): # update to take more variables
-    """
-    calculates the next time step for some quantity q
-    B requires (vector) u
-    """
-    w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_B(w_t, u) # update to take more variables
-    # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral(w_t, u=u, variable='b')
-    w_tp1[0] = config.w_t0_x0
-    w_tp1[-1] = config.w_t0_xM
-    return w_tp1
-
-def next_step_energy(w_t, rho, u, B, p): # update to take more variables
-    """
-    calculates the next time step for some quantity q
-    energy requires rho, u, B, p
-    """
-    w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_Energy(w_t, rho, u, B, p) # update to take more variables
-    # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral_Energy(w_t, rho=rho, u=u, B=B, p=p, variable='energy')
     w_tp1[0] = config.w_t0_x0
     w_tp1[-1] = config.w_t0_xM
     return w_tp1
@@ -75,7 +43,7 @@ def main():
     u_t = [all_quantities_t[u]]                     # stores variable history
     B_t = [all_quantities_t[B]]                     # stores variable history
     energy_t = [all_quantities_t[energy]]           # stores variable history
-    p_t = config.p0                                 # pressure
+    p_t = [config.p0]                               # stores variable history
 
     # run loop to step through time in steps dt
     t = 0
@@ -88,7 +56,7 @@ def main():
                 # collect quantities (at time n) we will need to evaluate rho 
                 u_n = u_t[-1]
                 # iterate to the next time step, including polynomial construction
-                w_tp1 = recon.construct_poly_approx(next_step_rho(quantity, u_n))
+                w_tp1 = recon.construct_poly_approx(next_step(quantity, u_n, 'rho'))
                 # update all_quantities_t list with the most recent grid (overwrites previous time step)
                 all_quantities_t[rho] = w_tp1.deepcopy()
                 # append new grid to appropriate variable history list
@@ -97,9 +65,9 @@ def main():
                 # collect quantities at time n
                 rho_n = rho_t[-2]
                 B_n = B_t[-1]
-                p_n = p_t
+                p_n = p_t[-1]
                 # iterate
-                w_tp1 = recon.construct_poly_approx(next_step_u(quantity, rho_n, B_n, p_n))
+                w_tp1 = recon.construct_poly_approx(next_step(quantity, rho_n, B_n, p_n, 'u'))
                 # reconstruct u using updated t+1 (n+1) rho value
                 rho_tp1 = all_quantities_t[rho]
                 w_tp1 = recon.reconstruct_u_vector(w_tp1, rho_tp1)
@@ -109,7 +77,7 @@ def main():
                 # collect quantities at time n
                 u_n = u_t[-2]
                 # iterate, etc.
-                w_tp1 = recon.construct_poly_approx(next_step_B(quantity, u_n))
+                w_tp1 = recon.construct_poly_approx(next_step(quantity, u_n, 'B'))
                 all_quantities_t[B] = w_tp1.deepcopy()
                 B_t.append(w_tp1.deepcopy())
             elif i == energy:
@@ -117,9 +85,9 @@ def main():
                 rho_n = rho_t[-2]
                 u_n = u_t[-2]
                 B_n = B_t[-2]
-                p_n = p_t
+                p_n = p_t[-1]
                 # iterate, etc.
-                w_tp1 = recon.construct_poly_approx(next_step_energy(quantity, rho_n, u_n, B_n, p_n))
+                w_tp1 = recon.construct_poly_approx(next_step(quantity, rho_n, u_n, B_n, p_n, 'energy'))
                 all_quantities_t[energy] = w_tp1.deepcopy()
                 energy_t.append(w_tp1.deepcopy())
         
@@ -128,7 +96,7 @@ def main():
         u_np1 = all_quantities_t[u]
         B_np1 = all_quantities_t[B]
         energy_np1 = all_quantities_t[energy]
-        p_t = recon.reconstruct_pressure(rho_np1, u_np1, B_np1, energy_np1)
+        p_t.append(recon.reconstruct_pressure(rho_np1, u_np1, B_np1, energy_np1))
 
         # iterate time
         t += config.dt

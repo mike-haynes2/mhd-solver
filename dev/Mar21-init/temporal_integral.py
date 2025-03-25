@@ -15,7 +15,7 @@ def Temporal_Integral(w_n, rho=0, u=0, B=0, p=0, variable=''):  # time is given 
             f = config.f_continuity_1D
             inputs = [u]
             deltas = Deltas
-        case 'b':
+        case 'B':
             f = config.f_faraday_1D
             inputs = [u]
             deltas = Deltas3D

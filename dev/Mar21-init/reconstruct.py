@@ -17,7 +17,7 @@ def construct_poly_approx(wbar):
     return poly_approx
 
 
-### 3D RECONSTRUCT POLYNOMIAL
+### 3D Reconstruct polynomial
 def construct_poly_approx_3D(wbar):
     poly_approx = np.zeros((len(wbar),len(wbar[0])))
     for j in range(len(wbar)-1):
