@@ -96,6 +96,7 @@ def main():
 
         # iterate time
         t += config.dt
+        
     ###########plotting animation stuff############
     config.animation(rho_t, 'density')
     config.animation(u_t[0,:], 'velocity_x')        # need to make sure it is the right value I am grabbing

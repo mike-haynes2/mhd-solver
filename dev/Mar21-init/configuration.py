@@ -167,15 +167,18 @@ def f_NS_1D(u_vector, inputs):
     return (np.multiply(np.multiply(u_vector,u_x[:,np.newaxis]),rho[:,np.newaxis])- np.multiply(np.multiply(B_vector,B_x[:,np.newaxis]), pstar[:,np.newaxis]) )
 # Faraday's Law for MHD (dB/dt = - curl E = curl(u x B) = div(B tensor u - u tensor B))
 def f_faraday_1D(B_vector, inputs):
-    u_vector = inputs[0]
-    By = u_vector[0] * B_vector[1] - B_vector[0] * u_vector[1]
-    Bz = u_vector[0] * B_vector[2] - B_vector[0] * u_vector[2]
-    return np.array([0.,By,Bz])
+    B = np.zeros_like(B_vector)
+    for i, bvec in enumerate(B_vector):
+        # print(bvec)
+        u_vector = inputs[0][i]
+        B[i,1] = u_vector[0] * bvec[1] - bvec[0] * u_vector[1]
+        B[i,2] = u_vector[0] * bvec[2] - bvec[0] * u_vector[2]
+    return B
 # energy equation
 def f_energy_1D(Energy, inputs):
     u_vector = inputs[0]; B_vector=inputs[1]; p=inputs[2]
     pstar = p + ((np.linalg.norm(B_vector,axis=1) ** 2.)/(2.*mu0)) 
-    f1 = (Energy + pstar) * u_vector[0]
+    f1 = (Energy + pstar) * u_vector[:,0]
     f2 = B_vector[0] * np.dot(u_vector,B_vector)
     return (f1 - f2)
 
