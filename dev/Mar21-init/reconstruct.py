@@ -13,9 +13,22 @@ def construct_poly_approx(wbar):
             poly_approx = wbar[j] + (1./2.) * MinMod(config.alpha * Dplus, D0, config.alpha * Dminus)
         else:
             poly_approx = wbar[j] + (1./2.) * config.alpha * (wbar[j] - wbar[j-1])
+    assert np.shape(wbar) == np.shape(poly_approx)
     return poly_approx
 
+
 ### 3D RECONSTRUCT POLYNOMIAL
+def construct_poly_approx_3D(wbar):
+    poly_approx = np.zeros((len(wbar),len(wbar[0])))
+    for j in range(len(wbar)-1):
+        for k in range(len(wbar[j])):
+            if j != len(wbar)-2:
+                Dplus, Dminus, D0 = Deltas(wbar[j,k],wbar[j-1,k],wbar[j+1,k])
+                poly_approx[j,k] = wbar[j,k] + (1./2.) * MinMod(config.alpha * Dplus, D0, config.alpha * Dminus)
+            else:
+                poly_approx[j,k] = wbar[j,k] + (1./2.) * config.alpha * (wbar[j,k] - wbar[j-1,k])
+    assert np.shape(wbar) == np.shape(poly_approx)
+    return poly_approx
 
 
 ## Functions to be called after constructing cell averages into polynomial approximations (which are sampled at the grid points)
