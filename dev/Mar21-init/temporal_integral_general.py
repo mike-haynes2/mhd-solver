@@ -28,7 +28,7 @@ def Temporal_Integral(w_n, rho=0, u=0, B=0, p=0, variable=''):  # time is given 
             inputs = [u, B, p]
             deltas = Deltas
         case _:
-            print('bruh')
+            raise ValueError('Bruh. must be "rho", "u", "energy"')
 
     # calculate global parameter
     lam = config.dt / config.dx

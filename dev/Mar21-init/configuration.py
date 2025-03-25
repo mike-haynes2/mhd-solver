@@ -144,7 +144,7 @@ def f_faraday_1D(B_vector, u_vector):
     return np.array([0.,By,Bz])
 # energy equation
 def f_energy_1D(Energy, u_vector, B_vector, p):
-    pstar = p + (np.dot(B_vector,B_vector)/mu0)
+    pstar = p + (np.dot(B_vector,B_vector)/(2.*mu0))
     f1 = (Energy + pstar) * u_vector[0]
     f2 = B_vector[0] * np.dot(u_vector,B_vector)
     return (f1 - f2)
@@ -170,7 +170,7 @@ def f_energy_1D(Energy, u_vector, B_vector, p):
 # # energy equation
 # def f_energy_1D(Energy, inputs):
 #     u_vector = inputs[0]; B_vector=inputs[1]; p=inputs[2]
-#     pstar = p + (np.dot(B_vector,B_vector)/mu0) # missing 1/2?
+#     pstar = p + (np.dot(B_vector,B_vector)/(2.*mu0)) 
 #     f1 = (Energy + pstar) * u_vector[0]
 #     f2 = B_vector[0] * np.dot(u_vector,B_vector)
 #     return (f1 - f2)
