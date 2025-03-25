@@ -1,6 +1,7 @@
 import numpy as np
 import math as m
-
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 from bokeh.models.widgets import inputs
 from scipy import constants
 
@@ -179,6 +180,21 @@ def f_energy_1D(Energy, u_vector, B_vector, p):
 def calculate_p_adiabatic(rho,gamma,reference_rho=1.,reference_p=1.):
     c = (rho/reference_rho) ** gamma
     return (reference_p * c)
+
+def animation(time_data, name):
+    fig, ax = plt.subplots()
+    line, = ax.plot(time_data[0], alpha=0.7)
+    ax.set_ylim(np.max(time_data) - 1, np.max(time_data) + 1)  # if it crashes on this line just comment it out
+    ax.set_xlabel("Position")
+    ax.set_ylabel(name)
+
+    def update(frame):
+        line.set_ydata(time_data[frame])
+        return line,
+
+    ani = animation.FuncAnimation(fig, update, frames=np.size(time_data, 0), interval=100, blit=True)
+    ani.save(f"{name}_animation.mp4", writer="ffmpeg")
+    plt.show()
 
 
 ################################################################################
