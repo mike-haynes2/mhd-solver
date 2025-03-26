@@ -44,20 +44,20 @@ alpha = 1. # paper uses 1.4 in caption of figure 4
 
 # spatial / time increment
 # (CFL parameters)
-CFL_velocity = 1.e+03 # 1 km / s (i.e., 'max' velocity we would expect)
+CFL_velocity = 10 # 1 km / s (i.e., 'max' velocity we would expect)
 CFL_safety_factor = .4  # how close to CFL condition is our timestep (4.4 Balbas)
 # perscribe spatial step
 dx = 1.e-02              # 1 cm grid spacing
 # calculate stable timestep dt
 dt = (dx * CFL_safety_factor)/CFL_velocity
+print(dt)
 # spatial extent (1D case)
 X_lower = -1.
 X_upper = 1.
-# time evolution (max time)
-# in timesteps:
-N_Tmax = 100
-# in seconds:
-Tmax = N_Tmax*dt # as a note the paper uses a hard cutoff of .2 or for high mach number is 0.012
+# time evolution (max time, s)
+Tmax = 0.002 # as a note the paper uses a hard cutoff of .2 or for high mach number is 0.012
+# in timesteps
+N_Tmax = Tmax / dt
 
 ################################################################################
 ################################################################################
@@ -182,7 +182,6 @@ def f_energy_1D(Energy, inputs):
     f2 = B_vector[:,0] * np.einsum('ij,ij->i', u_vector, B_vector)
     return (f1 - f2)
 
-
 # adiabatic law
 def calculate_p_adiabatic(rho,gamma,reference_rho=1.,reference_p=1.):
     c = (rho/reference_rho) ** gamma
@@ -190,18 +189,19 @@ def calculate_p_adiabatic(rho,gamma,reference_rho=1.,reference_p=1.):
 
 def animate(time_data, name):
     fig, ax = plt.subplots()
-    line, = ax.plot(time_data[0], alpha=0.7)
+    line, = ax.plot(time_data[0,:], alpha=0.7)
     # ax.set_ylim(np.max(time_data) - 1, np.max(time_data) + 1)  # if it crashes on this line just comment it out
     ax.set_xlabel("Position")
     ax.set_ylabel(name)
 
     def update(frame):
-        line.set_ydata(time_data[frame])
+        line.set_ydata(time_data[frame,:])
         return line,
 
-    ani = animation.FuncAnimation(fig, update, frames=np.size(time_data, 0), interval=100, blit=True)
+    ani = animation.FuncAnimation(fig, update, frames=np.size(time_data, 0), interval=200, blit=True)
     ani.save(f"{name}_animation.mp4", writer="ffmpeg")
     plt.show()
+    plt.savefig('/home/nbaker47/Desktop/shock_animation')
 
 
 ################################################################################

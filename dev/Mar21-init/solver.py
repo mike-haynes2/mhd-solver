@@ -97,11 +97,19 @@ def main():
         # iterate time
         t += config.dt
 
+    # convert all lists to arrays
+    rho_t = np.array(rho_t)
+    u_t = np.array(u_t)
+    B_t = np.array(B_t)
+    energy_t = np.array(energy_t)
+    p_t = np.array(p_t)  
+    print('shape rho, u(t)', np.shape(rho_t), np.shape(u_t))
+
     ###########plotting animation stuff############
     config.animate(rho_t, 'density')
-    config.animate(u_t[0,:], 'velocity_x')        # need to make sure it is the right value I am grabbing
-    config.animate(u_t[1,:], 'velocity_y')        # need to make sure it is the right value I am grabbing
-    config.animate(B_t[1, :], 'magnetic_field_y') # need to make sure it is the right value I am grabbing
+    config.animate(u_t[:,:,0], 'velocity_x')        # need to make sure it is the right value I am grabbing
+    config.animate(u_t[:,:,1], 'velocity_y')        # need to make sure it is the right value I am grabbing
+    config.animate(B_t[:,:,1], 'magnetic_field_y') # need to make sure it is the right value I am grabbing
     config.animate(energy_t, 'energy')
     config.animate(p_t, 'pressure')
 
