@@ -65,7 +65,6 @@ def initialize_1D(name='', nx=400, xmin=-1., xmax=1.):
             u_vec_pos = np.array([ux0, uy0, uz0])
         case _:
             raise ValueError('invalid testing: use ""Dai & Woodward"" or  ""Brio & Wu"" or ""slow shock"" or ""rarefaction""')
-            return np.zeros(nx), np.zeros((nx, 3)), np.zeros((nx, 3)), np.zeros(nx), np.zeros(nx), dx, Xs
 
     rho0 = base.copy()
     u0 = np.concatenate((np.outer(base[:num_neg], u_vec_neg), np.outer(base[num_neg:], u_vec_pos)))
@@ -73,7 +72,7 @@ def initialize_1D(name='', nx=400, xmin=-1., xmax=1.):
     rho0[left_mask] = ro0_neg; rho0[right_mask] = ro0_pos
 
 
-    B_square_neg = np.dot(b_vec_neg, b_vec_neg) / mu0 / 2 # this might be wrong
+    B_square_neg = np.dot(b_vec_neg, b_vec_neg) / mu0 / 2
     B_square_pos = np.dot(b_vec_pos, b_vec_pos) / mu0 / 2
     u_square_neg = np.dot(u_vec_neg, u_vec_neg)
     u_square_pos = np.dot(u_vec_pos, u_vec_pos)
@@ -128,18 +127,11 @@ rho0, u0, B0, energy0, p0, dx, Xs = initialize_1D(name='Brio & Wu', nx=nx, xmin=
 CFL_velocity = 1.e+03 # 1 km / s (i.e., 'max' velocity we would expect)
 CFL_safety_factor = .4  # how close to CFL condition is our timestep (4.4 Balbas)
 dt = (dx * CFL_safety_factor)/CFL_velocity
-N_Tmax = 100
-# in seconds:
-Tmax = N_Tmax*dt # as a note the paper uses a hard cutoff of .2 or for high mach number is 0.012
+
+Tmax = 0.002 # as a note the paper uses a hard cutoff of .2 or for high mach number is 0.012
+N_Tmax = Tmax / dt
 
 alpha = 1.4 # paper uses 1.4 in caption of figure 4 # weighting threshold for MinMod derivative approximator
-
-left_mask = (Xs < 0.0)
-right_mask = ~left_mask
-num_neg = left_mask.sum()
-############################
-# shock tube test case
-############################
 
 # placeholder for each quantity (u, B, p, etc)
 w_t0 = np.ones_like(Xs)
@@ -159,53 +151,53 @@ B_x_perscription = 3./4.    # nT    (see Equation 4.4 in Balbas et al)
 ################################################################################
 # 1-D equations (see eqns 4.1-4.2 in Balbas et al)
 # continuity:
-def f_continuity_1D(rho, u_vector):
-    u_x = np.array(u_vector)[0]
-    return (rho*u_x)
-# EOM / Navier Stokes:
-def f_NS_1D(u_vector, rho, B_vector, p):
-    pstar = p + (np.dot(B_vector,B_vector)/mu0)
-    xhat = np.array([1.,0.,0.])
-    u_x = np.dot(np.array(u_vector),xhat)
-    B_x = np.dot(np.array(B_vector),xhat)
-    return (rho * u_x * u_vector - B_x * B_vector + pstar * xhat)
-# Faraday's Law for MHD (dB/dt = - curl E = curl(u x B) = div(B tensor u - u tensor B))
-def f_faraday_1D(B_vector, u_vector):
-    By = u_vector[0] * B_vector[1] - B_vector[0] * u_vector[1]
-    Bz = u_vector[0] * B_vector[2] - B_vector[0] * u_vector[2]
-    return np.array([0.,By,Bz])
-# energy equation
-def f_energy_1D(Energy, u_vector, B_vector, p):
-    pstar = p + (np.dot(B_vector,B_vector)/mu0)
-    f1 = (Energy + pstar) * u_vector[0]
-    f2 = B_vector[0] * np.dot(u_vector,B_vector)
-    return (f1 - f2)
-############### If we wanted to use only one time integration the files###############
-# def f_continuity_1D(rho, inputs):
-#     u_vector = inputs[1]
+# def f_continuity_1D(rho, u_vector):
 #     u_x = np.array(u_vector)[0]
 #     return (rho*u_x)
 # # EOM / Navier Stokes:
-# def f_NS_1D(u_vector, inputs):
-#     rho = inputs[0]; B_vector = inputs[1]; p = inputs[2]
-#     pstar = p + (np.dot(B_vector,B_vector)/mu0)
+# def f_NS_1D(u_vector, rho, B_vector, p):
+#     pstar = p + (np.dot(B_vector,B_vector)/mu0/2)
 #     xhat = np.array([1.,0.,0.])
 #     u_x = np.dot(np.array(u_vector),xhat)
 #     B_x = np.dot(np.array(B_vector),xhat)
 #     return (rho * u_x * u_vector - B_x * B_vector + pstar * xhat)
 # # Faraday's Law for MHD (dB/dt = - curl E = curl(u x B) = div(B tensor u - u tensor B))
-# def f_faraday_1D(B_vector, inputs):
-#     u_vector = inputs[0]
+# def f_faraday_1D(B_vector, u_vector):
 #     By = u_vector[0] * B_vector[1] - B_vector[0] * u_vector[1]
 #     Bz = u_vector[0] * B_vector[2] - B_vector[0] * u_vector[2]
 #     return np.array([0.,By,Bz])
 # # energy equation
-# def f_energy_1D(Energy, inputs):
-#     u_vector = inputs[0]; B_vector=inputs[1]; p=inputs[2]
-#     pstar = p + (np.dot(B_vector,B_vector)/mu0) # missing 1/2?
+# def f_energy_1D(Energy, u_vector, B_vector, p):
+#     pstar = p + (np.dot(B_vector,B_vector) /mu0 / 2)
 #     f1 = (Energy + pstar) * u_vector[0]
 #     f2 = B_vector[0] * np.dot(u_vector,B_vector)
 #     return (f1 - f2)
+############### If we wanted to use only one time integration the files###############
+def f_continuity_1D(rho, inputs):
+    u_vector = inputs[1]
+    u_x = np.array(u_vector)[0]
+    return (rho*u_x)
+# EOM / Navier Stokes:
+def f_NS_1D(u_vector, inputs):
+    rho = inputs[0]; B_vector = inputs[1]; p = inputs[2]
+    pstar = p + (np.dot(B_vector,B_vector)/mu0/2)
+    xhat = np.array([1.,0.,0.])
+    u_x = np.dot(np.array(u_vector),xhat)
+    B_x = np.dot(np.array(B_vector),xhat)
+    return (rho * u_x * u_vector - B_x * B_vector + pstar * xhat)
+# Faraday's Law for MHD (dB/dt = - curl E = curl(u x B) = div(B tensor u - u tensor B))
+def f_faraday_1D(B_vector, inputs):
+    u_vector = inputs[0]
+    By = u_vector[0] * B_vector[1] - B_vector[0] * u_vector[1]
+    Bz = u_vector[0] * B_vector[2] - B_vector[0] * u_vector[2]
+    return np.array([0.,By,Bz])
+# energy equation
+def f_energy_1D(Energy, inputs):
+    u_vector = inputs[0]; B_vector=inputs[1]; p=inputs[2]
+    pstar = p + (np.dot(B_vector,B_vector)/mu0/2) # missing 1/2?
+    f1 = (Energy + pstar) * u_vector[0]
+    f2 = B_vector[0] * np.dot(u_vector,B_vector)
+    return (f1 - f2)
 
 
 # adiabatic law
@@ -227,6 +219,7 @@ def animation(time_data, name):
     ani = animation.FuncAnimation(fig, update, frames=np.size(time_data, 0), interval=100, blit=True)
     ani.save(f"{name}_animation.mp4", writer="ffmpeg")
     plt.show()
+    plt.savefig('/home/nbaker47/Desktop/shock_animation')
 
 
 ################################################################################
