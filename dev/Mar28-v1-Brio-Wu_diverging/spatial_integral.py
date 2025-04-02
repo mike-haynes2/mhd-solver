@@ -47,7 +47,13 @@ def Spatial_Integral(w_n, variable=''): # time is given by variable n
         ### w_prime_jp1 ###
         if j == len(w_n)-2: # account for problematic j + 2 index
             # it might be possible to just make an additional ghost cell
-            w_prime_jp1 = (w_n[j+1] - w_n[j]) * config.alpha # use Euler backward ???still multiplying by alpha???
+            #w_prime_jp1 = (w_n[j+1] - w_n[j]) * config.alpha # use Euler backward ???still multiplying by alpha???
+            if np.shape(w_n[j])==():
+                w_prime_jp1 = 0.
+            elif np.shape(w_n[j])==(3,):
+                w_prime_jp1 = np.array([0.,0.,0.])
+            else:
+                raise TypeError('wrong shapes in spatial_integral')
         else:
             delta_plus_jp1, delta_minus_jp1, delta_0_jp1 = deltas(w_n[j+1], w_n[j], w_n[j+2])
             # calculate new step options
@@ -62,10 +68,10 @@ def Spatial_Integral(w_n, variable=''): # time is given by variable n
         if variable=='u' or variable=='B':
             I_j = np.array([0, 0, 0])
             for i in range(3):
-                I_j[i] == 1/config.dx * (1/2 * (w_n[j][i] + w_n[j+1][i]) + 1/8 * (w_prime_j[i] + w_prime_jp1[i]))
+                I_j[i] =  (1./2. * (w_n[j][i] + w_n[j+1][i]) + 1./8. * (w_prime_j[i] - w_prime_jp1[i] )) # 1. /config.dx
         # scalar case
         else:
-            I_j = 1/config.dx * (1/2 * (w_n[j] + w_n[j+1]) + 1/8 * (w_prime_j + w_prime_jp1)) # ???keep or remove dx???
+            I_j =  (1./2. * (w_n[j] + w_n[j+1]) + 1./8. * (w_prime_j - w_prime_jp1  )) # 1. /config.dx *
 
         w_np1[j] = I_j
 

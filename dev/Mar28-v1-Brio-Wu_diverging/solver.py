@@ -5,6 +5,7 @@ import configuration as config
 import reconstruct as recon
 from spatial_integral import Spatial_Integral
 from temporal_integral import Temporal_Integral
+from datetime import datetime
 
 ########################
 ### HELPER FUNCTIONS ###
@@ -16,6 +17,12 @@ def next_step(w_t, rho=0, u=0, B=0, p=0, variable=''):
     """
 
     w_tp1 = Spatial_Integral(w_t, variable=variable) - Temporal_Integral(w_t, rho=rho, u=u, B=B, p=p, variable=variable) # update to take more variables
+    # spat_int = Spatial_Integral(w_t, variable=variable)
+    # temp_int = Temporal_Integral(w_t, rho=rho, u=u, B=B, p=p, variable=variable)
+    # w_tp1 = spat_int - temp_int
+    # if variable=='u':
+    #     print('spat_int: ',spat_int)
+    #     print('temp_int: ',temp_int)
     # w_tp1 = Spatial_Integral(w_t) - Temporal_Integral(w_t, u=u, variable='rho') # general case
     # w_tp1[0] = config.w_t0_x0
     # w_tp1[-1] = config.w_t0_xM
@@ -44,7 +51,7 @@ def main():
     # run loop to step through time in steps dt
     t = 0
     while t < config.Tmax:    
-
+        print(t)
         # run loop to step through all quantities at time t
         for i, quantity in enumerate(all_quantities_t):
 
@@ -52,7 +59,14 @@ def main():
                 # collect quantities (at time n) we will need to evaluate rho 
                 u_n = u_t[-1]
                 # iterate to the next time step, including polynomial construction
-                w_tp1 = recon.construct_poly_approx(next_step(quantity, u=u_n, variable='rho'))
+                NextStep_rho = next_step(quantity, u=u_n, variable='rho')
+                # print('next step rho [-1]: ',NextStep_rho[-1])
+                # print('next step rho [0]: ', NextStep_rho[0])
+                w_tp1 = recon.construct_poly_approx(NextStep_rho)
+
+                # print('w_tp1[0] rho:',w_tp1[0])
+                # print('w_tp1[-1] rho:',w_tp1[-1])
+                # print('minimum rho: ',np.min(w_tp1))
                 # update all_quantities_t list with the most recent grid (overwrites previous time step)
                 all_quantities_t[rho] = w_tp1.copy()
                 # append new grid to appropriate variable history list
@@ -63,7 +77,13 @@ def main():
                 B_n = B_t[-1]
                 p_n = p_t[-1]
                 # iterate
-                w_tp1 = recon.construct_poly_approx_3D(next_step(quantity, rho=rho_n, B=B_n, p=p_n, variable='u'))
+                NextStep_u = next_step(quantity, rho=rho_n, B=B_n, p=p_n, variable='u')
+                # print('next step u [-1]: ',NextStep_u[-1])
+                # print('next step u [0]: ', NextStep_u[0])
+                w_tp1 = recon.construct_poly_approx_3D(NextStep_u)
+                # print('w_tp1[-1] u: ',w_tp1[-1])
+                # print('w_tp1[0] u: ', w_tp1[0])
+
                 # reconstruct u using updated t+1 (n+1) rho value
                 rho_tp1 = all_quantities_t[rho]
                 w_tp1 = recon.reconstruct_u_vector(w_tp1, rho_tp1)
@@ -104,14 +124,14 @@ def main():
     energy_t = np.array(energy_t)
     p_t = np.array(p_t)  
     # print('shape rho, u(t)', np.shape(rho_t), np.shape(u_t))
-
+    now_plotting = datetime.now()
     ###########plotting animation stuff############
-    config.animate(rho_t, 'density')
-    config.animate(u_t[:,:,0], 'velocity_x')        # need to make sure it is the right value I am grabbing
-    config.animate(u_t[:,:,1], 'velocity_y')        # need to make sure it is the right value I am grabbing
-    config.animate(B_t[:,:,1], 'magnetic_field_y') # need to make sure it is the right value I am grabbing
-    config.animate(energy_t, 'energy')
-    config.animate(p_t, 'pressure')
+    config.animate(rho_t, 'density', now_plotting)
+    config.animate(u_t[:,:,0], 'velocity_x', now_plotting)        # need to make sure it is the right value I am grabbing
+    config.animate(u_t[:,:,1], 'velocity_y', now_plotting)        # need to make sure it is the right value I am grabbing
+    config.animate(B_t[:,:,1], 'magnetic_field_y', now_plotting) # need to make sure it is the right value I am grabbing
+    config.animate(energy_t, 'energy', now_plotting)
+    config.animate(p_t, 'pressure', now_plotting)
 
 ################
 ### RUN MAIN ###

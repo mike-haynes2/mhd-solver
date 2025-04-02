@@ -72,7 +72,13 @@ def Temporal_Integral(w_n, rho=0, u=0, B=0, p=0, variable=''):  # time is given 
 
         ### f_jp1 ###
         if j == len(w_n) - 2:  # account for problematic j + 2 index
-            f_prime_jp1 = (f_jp1 - f_j) * config.alpha  # use Euler backward ???still multiplying by alpha???
+            #f_prime_jp1 = (f_jp1 - f_j) * config.alpha  # use Euler backward ???still multiplying by alpha???
+            if np.shape(w_n[j])==():
+                f_prime_jp1 = 0.
+            elif np.shape(w_n[j])==(3,):
+                f_prime_jp1 = np.array([0.,0.,0.])
+            else:
+                raise TypeError('wrong shapes in temporal_integral')
         else:
             f_jp1 = f(w_n, inputs)[j+1]
             f_j = f(w_n, inputs)[j]
@@ -90,7 +96,7 @@ def Temporal_Integral(w_n, rho=0, u=0, B=0, p=0, variable=''):  # time is given 
         f_j_list[j] = w_n[j] - lam / 2 * f_prime_j
         f_jp1_list[j] = w_n[j+1] - lam / 2 * f_prime_jp1
 
-    w_np1 = lam * (f(np.array(f_j_list), inputs) + f(np.array(f_jp1_list), inputs))
+    w_np1 = lam * ( f(np.array(f_jp1_list), inputs) - f(np.array(f_j_list), inputs))
 
     # BOUNDARY CONDITIONS
     w_np1[0] = w_np1[1]
