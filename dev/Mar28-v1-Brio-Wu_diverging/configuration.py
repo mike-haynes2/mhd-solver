@@ -70,6 +70,24 @@ def initialize_1D(name='', nx=400, xmin=-1., xmax=1.):
             bx0 = 1.; by0 = 1.6405; bz0 = 0
             b_vec_pos = np.array([bx0, by0, bz0])
             u_vec_pos = np.array([ux0, uy0, uz0])
+        case 'fluid density sigmoid':
+            ro0_neg = 1.; pr0_neg = 2.
+            ro0_pos = ro0_neg; pr0_pos = pr0_neg
+            ux0 = 1.e-03; uy0 = 1.e-03; uz0 = 1.e-03
+            bx0 = 0.; by0 = 0.; bz0 = 0.
+            b_vec_neg = np.array([bx0, by0, bz0])
+            u_vec_neg = np.array([ux0, uy0, uz0])
+            b_vec_pos = np.array([bx0, by0, bz0])
+            u_vec_pos = np.array([ux0, uy0, uz0])
+        case 'magnetized fluid density sigmoid':
+            ro0_neg = 1.; pr0_neg = 2.
+            ro0_pos = ro0_neg; pr0_pos = pr0_neg
+            ux0 = 1.e-03; uy0 = 1.e-03; uz0 = 0.
+            bx0 = 0.75; by0 = 1.; bz0 = 0.
+            b_vec_neg = np.array([bx0, by0, bz0])
+            u_vec_neg = np.array([ux0, uy0, uz0])
+            b_vec_pos = np.array([bx0, by0, bz0])
+            u_vec_pos = np.array([ux0, uy0, uz0])
         case _:
             raise ValueError('invalid testing: use ""Dai & Woodward"" or  ""Brio & Wu"" or ""slow shock"" or ""rarefaction""')
 
@@ -89,6 +107,11 @@ def initialize_1D(name='', nx=400, xmin=-1., xmax=1.):
         p0 = np.ones_like(rho0)
         for i in range(num_neg):
             p0[num_neg+i] = 0.1
+    elif name == 'fluid density sigmoid' or 'magnetized fluid density sigmoid':
+        p0 = np.ones_like(rho0) * (1./(1.+np.exp(-20.*Xs)))
+        rho0 = p0.copy() 
+        p0 = 1. - p0
+        rho0 = 1. - rho0
 
     energy0 = p0 / (adiabatic_index - 1) + np.concatenate(( base[:num_neg] * B_square_neg , base[:num_neg] * B_square_pos)) \
             + np.concatenate(( rho0[:num_neg] * u_square_neg / 2, rho0[num_neg:] * u_square_pos / 2 ))
@@ -109,6 +132,8 @@ me = constants.m_e
 c = constants.c
 mu0 = constants.mu_0
 eps0 = constants.epsilon_0
+
+
 ################################################################################
 ################################################################################
 
@@ -136,7 +161,8 @@ adiabatic_index = 2.     # gamma (1 + 2 / DOF)
 ################################################################################
 # initialize spatial grid
 X_lower = -1.; X_upper = 1.;nx = 200
-rho0, u0, B0, energy0, p0, dx, Xs = initialize_1D(name='Brio & Wu', nx=nx, xmin=X_lower, xmax=X_upper) # might have to change the name of some things
+#rho0, u0, B0, energy0, p0, dx, Xs = initialize_1D(name='Brio & Wu', nx=nx, xmin=X_lower, xmax=X_upper) # might have to change the name of some things
+rho0, u0, B0, energy0, p0, dx, Xs = initialize_1D(name='magnetized fluid density sigmoid', nx=nx, xmin=X_lower, xmax=X_upper) # might have to change the name of some things
 CFL_velocity = 1.e+03 # 1 km / s (i.e., 'max' velocity we would expect)
 CFL_safety_factor = .4  # how close to CFL condition is our timestep (4.4 Balbas)
 dt = (dx * CFL_safety_factor)/CFL_velocity
@@ -201,7 +227,11 @@ def f_NS_1D(u_vector, inputs):
     # print(np.shape(u_vector))
     u_x = u_vector[:,0]
     B_x = B_vector[:,0]
-    return (np.multiply(np.multiply(u_vector,u_x[:,np.newaxis]),rho[:,np.newaxis])- np.multiply(np.multiply(B_vector,B_x[:,np.newaxis]), pstar[:,np.newaxis]) )
+    rho_u_tensor_u = np.multiply(np.multiply(u_vector,u_x[:,np.newaxis]),rho[:,np.newaxis])
+    B_tensor_B = (1./mu0) * (- np.multiply(B_vector,B_x[:,np.newaxis]))
+    pstar_term = np.zeros_like(B_tensor_B)
+    pstar_term[:,0] = pstar
+    return ( rho_u_tensor_u  - B_tensor_B + pstar_term )
 # Faraday's Law for MHD (dB/dt = - curl E = curl(u x B) = div(B tensor u - u tensor B))
 def f_faraday_1D(B_vector, inputs):
     B = np.zeros_like(B_vector)
@@ -210,6 +240,7 @@ def f_faraday_1D(B_vector, inputs):
         u_vector = inputs[0][i]
         B[i,1] = u_vector[0] * bvec[1] - bvec[0] * u_vector[1]
         B[i,2] = u_vector[0] * bvec[2] - bvec[0] * u_vector[2]
+    #print(B[:,1])
     return B
 # energy equation
 def f_energy_1D(Energy, inputs):
@@ -223,6 +254,9 @@ def f_energy_1D(Energy, inputs):
 def calculate_p_adiabatic(rho,gamma,reference_rho=1.,reference_p=1.):
     c = (rho/reference_rho) ** gamma
     return (reference_p * c)
+
+
+
 
 ### Movie Animation Function ###
 # def animate(time_data, name):

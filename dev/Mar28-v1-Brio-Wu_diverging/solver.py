@@ -50,7 +50,8 @@ def main():
 
     # run loop to step through time in steps dt
     t = 0
-    while t < config.Tmax:    
+#    while t < config.Tmax:    
+    while t < 2 * config.dt :    
         print(t)
         # run loop to step through all quantities at time t
         for i, quantity in enumerate(all_quantities_t):
@@ -123,6 +124,10 @@ def main():
     B_t = np.array(B_t)
     energy_t = np.array(energy_t)
     p_t = np.array(p_t)  
+    
+    # After a single timestep, Bx and ux, uy are getting set to zero. check how the updated values propagate back through the method, see if any wrong expressions
+
+
     # print('shape rho, u(t)', np.shape(rho_t), np.shape(u_t))
     now_plotting = datetime.now()
     ###########plotting animation stuff############

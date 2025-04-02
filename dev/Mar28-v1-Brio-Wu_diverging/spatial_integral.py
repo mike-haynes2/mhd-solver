@@ -28,11 +28,11 @@ def Spatial_Integral(w_n, variable=''): # time is given by variable n
     # create array to store new values
     w_np1 = np.zeros_like(w_n)
     # apply boundary conditions (assumes time-independency of boundary conditions)
-    w_np1[0] = w_n[0]
-    w_np1[-1] = w_n[-1]
+    # w_np1[0] = w_n[0]
+    # w_np1[-1] = w_n[-1]
 
     # fill in w_np1 array
-    for j in range(1, len(w_n)-1):
+    for j in range(len(w_n)-1):
 
         ### w_prime_j ###
         # calculate deltas 
@@ -45,7 +45,7 @@ def Spatial_Integral(w_n, variable=''): # time is given by variable n
         w_prime_j = minmod(a_j, b_j, c_j)
 
         ### w_prime_jp1 ###
-        if j == len(w_n)-2: # account for problematic j + 2 index
+        if j == len(w_n)-2 or j == 0: # account for problematic j + 2 index
             # it might be possible to just make an additional ghost cell
             #w_prime_jp1 = (w_n[j+1] - w_n[j]) * config.alpha # use Euler backward ???still multiplying by alpha???
             if np.shape(w_n[j])==():
@@ -75,4 +75,7 @@ def Spatial_Integral(w_n, variable=''): # time is given by variable n
 
         w_np1[j] = I_j
 
+    w_np1[-1] = w_np1[-2]
+    w_np1[0] = w_np1[1]
+    
     return w_np1
