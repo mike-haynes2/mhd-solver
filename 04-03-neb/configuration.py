@@ -8,11 +8,6 @@ import matplotlib.pyplot as plt
 
 
 # initialize parameters (in this 1D model, Bx is a mere parameter)
-## Constants
-# currently haven't worried about reconstruction of dimensionality in results. Would be necessary for that
-mu0 = constants.mu_0
-c = constants.c
-
 ## Physical parameters
 # derivative factor in minmod, still need to implement
 alpha = 1.4
@@ -31,14 +26,17 @@ dx = length / nx
 
 ## time domain
 # set dt according to rough courant (CFL) estimate. Velocities in their runs are order 1
-dt = dx / 100.
+CFL_safety = 40.
+dt = dx / CFL_safety
 print('dt=',dt, ' s')
 # max time
-Tmax = 0.15 # s
+Tmax = 0.2 # s
 # number of timesteps
 nt = int(Tmax / dt)
 # lambda from balbas
 lam = dt / dx
+
+n_plots = 20
 
 # for vectorized loop over all quantities
 num_vars = 7

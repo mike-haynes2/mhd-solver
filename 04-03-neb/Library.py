@@ -14,11 +14,9 @@ def minmod(alpha, wjm, wj, wjp):
         delplus = alpha * (wjp - wj)
         del0 = (1./2.) * (delminus + delplus)
         # calculate minimums in the least efficient and most verbose way possible
-        minl = min(delminus,del0)
-        minp = min(delplus,del0)
-        return_min = min(minl,minp)
+        dels = np.array([delminus, delplus, del0])
         
-        return np.sign(wj) * return_min
+        return np.sign(wj) * np.nanmin(dels)
     
     else:
         return 0.
@@ -59,10 +57,12 @@ def calc_f_cell(cell, Bx, gam):
     return np.array([f0, f1, f2, f3, f4, f5, f6])
 
 # plotting function
-def animate(meshOBJ, stagger_switch, tL, now):
+def animate(mesh, stagger_switch, tL, now):
     """saves individual plots for each variable"""
-    
-    plot_dir = 'Plots ' + str(now)
+
+    meshOBJ = mesh.copy()
+
+    plot_dir = 'Plots-- a=' + str(c.alpha) + ', Tmax=' + str(c.Tmax) + ', nx=' + str(c.nx) + ', dt,dx=' + str(c.dt) + ',' + str(c.dx)  
     # check if directories exist
     if os.path.exists(plot_dir):
         print(f"Saving new plots")
@@ -84,10 +84,13 @@ def animate(meshOBJ, stagger_switch, tL, now):
             name = 'rho'
         elif i == 1:
             name = 'u_x'
+            meshOBJ[stagger_switch, 1, :] /= meshOBJ[stagger_switch, 0, :] # divide by rho
         elif i == 2:
             name = 'u_y'
+            meshOBJ[stagger_switch, 2, :] /= meshOBJ[stagger_switch, 0, :] # divide by rho
         elif i == 3:
             name = 'u_z'
+            meshOBJ[stagger_switch, 3, :] /= meshOBJ[stagger_switch, 0, :] # divide by rho
         elif i == 4:
             name = 'B_x'
         elif i == 5:

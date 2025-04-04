@@ -8,6 +8,7 @@ import os
 from Library import minmod, calc_f, calc_f_cell, animate
 import configuration as c
 from datetime import datetime
+from tqdm import tqdm
 
 ########## Variable Indices ###########
 # 0: rho 
@@ -19,7 +20,7 @@ from datetime import datetime
 # 6: energy 
 
 ########## Initial Parameters ##########
-# get the current time for plotting
+# get the plotting parameters
 now =  datetime.now()
 
 # initialize stagger_switch
@@ -69,18 +70,20 @@ while c.t <= c.Tmax:
             meshOBJ[0,:,i] = update_arr - c.lam*(fjnp1half - fjnhalf)
         else:
             raise ValueError('The variable "stagger_switch" must be either zero or unity!')
-    
-    ### ARE WE UPDATING THE VELOCITIES BY DIVIDING BY RHO ELSEWHERE
-    # handle u_x reconstruction
-    rho_arr = rho_arr = meshOBJ[stagger_switch, 0, :]
-    meshOBJ[stagger_switch, 1, :] /= rho_arr
-    meshOBJ[stagger_switch, 2, :] /= rho_arr
-    meshOBJ[stagger_switch, 3, :] /= rho_arr
 
     # benchmarking output 
     # should largely incorporate the animation and plotting routines we have already made
-    if c.tL > 0:
-        if (c.tL % (c.nt // 10)) == 0:
+    if c.tL == 0: 
+        percent = round((c.t / c.Tmax)*100.,2)
+        print('time t=',c.t)
+        print(r'progress is ', percent, r'% done')
+        # output data
+        # might need to call at first index: 1 - stagger_switch*1 to get the values that we JUST UPDATED IN THIS TIMESTEP,
+        # i.e., the values on the offset mesh (since we switch up and down between the j+1/2 and j each dt)
+
+        animate(meshOBJ, stagger_switch, c.tL, now)  
+    elif c.tL > 0:
+        if (c.tL % (c.nt // c.n_plots)) == 0:
             percent = round((c.t / c.Tmax)*100.,2)
             print('time t=',c.t)
             print(r'progress is ', percent, r'% done')
@@ -89,6 +92,10 @@ while c.t <= c.Tmax:
             # i.e., the values on the offset mesh (since we switch up and down between the j+1/2 and j each dt)
 
             animate(meshOBJ, stagger_switch, c.tL, now)
+
+            # also calculate CFL number
+            CFL = meshOBJ[stagger_switch, 1, :].max() * c.dt / c.dx
+            print('CFL is',CFL)
 
     if stagger_switch == 1:
         stagger_switch = 0
