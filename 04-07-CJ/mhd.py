@@ -101,7 +101,7 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
                     # df = df.astype(float)
                     # df.to_csv(f'alpha_test_dir_case_{name}/case_{name}_alpha_{alpha}_time_{t}_timestep_{tL}.csv')
                     np.savez(f'alpha_test_dir_case_{name}/case_{name}_alpha_{alpha}_time_{t}_timestep_{tL}.npz', **data)
-                if sig != 0:
+                elif sig != 0:
                     data = {f'rho_{sig}_{t}': rho_arr, f'u_x_{sig}_{t}': u_x_arr, f'u_y_{sig}_{t}': u_y_arr, f'u_z_{sig}_{t}': u_z_arr,
                             f'B_y_{sig}_{t}': B_y_arr, f'B_z_{sig}_{t}': B_z_arr, f'en_{sig}_{t}': en_arr}
                     np.savez(f'sigmoid_test/sigmoid_{sig}_time_{t}_timestep_{tL}.npz', **data)
@@ -122,5 +122,19 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
             raise ValueError('The variable "stagger_switch" must be either zero or unity!')
 
         # advance time
+        # goofy ahh 2 AM eigenvalue calculation
+        # this might depend on what layer we are using
+        # need to reconstruct pressure from
+        # B_square = np.dot( np.dot(meshOBJ[stagger_switch, 4, :], meshOBJ[stagger_switch, 5, :]),  np.ones_like(meshOBJ[stagger_switch, 5, :]) * Bx)
+        # pressure = (gamma - 1) * (meshOBJ[stagger_switch, 6, :] - np.dot( np.dot(meshOBJ[stagger_switch, 1, :], meshOBJ[stagger_switch, 2, :]),  meshOBJ[stagger_switch, 3, :]) / 2.
+        #                     - B_square / 2)
+        # a_square = gamma * np.divide(pressure , meshOBJ[stagger_switch, 0, :])
+        # c_ax = Bx / np.sqrt(meshOBJ[stagger_switch, 0, :])
+        # c_A_squared = np.divide(B_square, meshOBJ[stagger_switch, 0, :])
+        # c_f = .5 * ( a_square + c_A_squared + np.sqrt( np.power(a_square + c_A_squared, 2) - 4 * a_square * np.power(c_ax,2) ) )
+        # wave_speed = np.max(np.max(c_f), np.max(c_ax) )  # maybe only need one max around. too tired
+        # v_max = meshOBJ[stagger_switch, 1, :].max() + wave_speed
+        # dt = new_dt =  dx / v_max / CFL_safety if v_max != 0 else 1e-4 # if you wanted to do an adaptive time step with only the velocity
         t += dt
         tL += 1
+

@@ -114,7 +114,6 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
 # fixed_work_alpha_run = partial(Balbas.balbas_one_dimension,
 #      meshOBJ=meshOBJ, Tmax=.2, num_vars=7, Bx=.75, gamma=2, nx=nx, n_plots=5, CFL_safety=40, length=2, name=name, alpha_test=True)
 # # alpha_vals = np.arange(.8, 4, .4)
-# alpha_vals = [1, 1.4]
 #
 # # this is the parrallel run for all of the alpha values // -1 means it runs on all available cores set to whatever you actually want it to be
 # Parallel(n_jobs=-1)(delayed(fixed_work_alpha_run)(alpha=a) for a in alpha_vals)
