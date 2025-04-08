@@ -102,8 +102,8 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
                     # df.to_csv(f'alpha_test_dir_case_{name}/case_{name}_alpha_{alpha}_time_{t}_timestep_{tL}.csv')
                     np.savez(f'alpha_test_dir_case_{name}/case_{name}_alpha_{alpha}_time_{t}_timestep_{tL}.npz', **data)
                 if sig != 0:
-                    data = {f'rho_{alpha}_{t}': rho_arr, f'u_x_{alpha}_{t}': u_x_arr, f'u_y_{alpha}_{t}': u_y_arr, f'u_z_{alpha}_{t}': u_z_arr,
-                            f'B_y_{alpha}_{t}': B_y_arr, f'B_z_{alpha}_{t}': B_z_arr, f'en_{alpha}_{t}': en_arr}
+                    data = {f'rho_{sig}_{t}': rho_arr, f'u_x_{sig}_{t}': u_x_arr, f'u_y_{sig}_{t}': u_y_arr, f'u_z_{sig}_{t}': u_z_arr,
+                            f'B_y_{sig}_{t}': B_y_arr, f'B_z_{sig}_{t}': B_z_arr, f'en_{sig}_{t}': en_arr}
                     np.savez(f'sigmoid_test/sigmoid_{sig}_time_{t}_timestep_{tL}.npz', **data)
                 # also calculate CFL number
                 if tL != 0:

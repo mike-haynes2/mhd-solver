@@ -115,11 +115,11 @@ def animate(mesh, stagger_switch, tL, now, alpha, Tmax, nx, dt, dx, num_vars,nam
         plt.savefig(img_path)
         plt.close()
 
-    # rho_arr = meshOBJ[stagger_switch, 0, :]
-    # u_x_arr = meshOBJ[stagger_switch, 1, :] / rho_arr # does this do this twice ie. line 87?
-    # u_y_arr = meshOBJ[stagger_switch, 2, :] / rho_arr
-    # u_z_arr = meshOBJ[stagger_switch, 3, :] / rho_arr
-    # B_y_arr = meshOBJ[stagger_switch, 4, :]
-    # B_z_arr = meshOBJ[stagger_switch, 5, :]
-    # en_arr = meshOBJ[stagger_switch, 6, :]
-    # return rho_arr, u_x_arr, u_y_arr, u_z_arr, B_y_arr, B_z_arr, en_arr
+    rho_arr = meshOBJ[stagger_switch, 0, :]
+    u_x_arr = meshOBJ[stagger_switch, 1, :] / rho_arr # does this do this twice ie. line 87?
+    u_y_arr = meshOBJ[stagger_switch, 2, :] / rho_arr
+    u_z_arr = meshOBJ[stagger_switch, 3, :] / rho_arr
+    B_y_arr = meshOBJ[stagger_switch, 4, :]
+    B_z_arr = meshOBJ[stagger_switch, 5, :]
+    en_arr = meshOBJ[stagger_switch, 6, :]
+    return rho_arr, u_x_arr, u_y_arr, u_z_arr, B_y_arr, B_z_arr, en_arr
