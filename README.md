@@ -22,3 +22,8 @@ There are other initial test cases run that are under the names of 'slow shock',
 The deltas function is used to calculate both the spatial and temporal integrals of Eq. (2.5). The function is defined in the footnote of p.264. We have also written a 3D version of the function, which handles vector (u, B) input. 
 #### minmod.py
 The minmod function is used to calculate both the spatial and temporal integrals of Eq. (2.5). The function is defined at the top of p.265. We have also written a 3D version of the function, which handles vector (u, B) input. 
+
+
+## Kenneth Comment
+I was stupid and git for some reason transfered me into the other branch the devel_CMH-NEB so my comments and code will be there
+sorry
