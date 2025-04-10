@@ -25,7 +25,7 @@ from tqdm import tqdm
 
 # construct initial grid
 
-def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots, CFL_safety, length, name, alpha_test=False, sig=0):
+def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots, CFL_safety, length, name, start_time, alpha_test=False, sig=0):
 
     dx = length / nx
     dt = dx / CFL_safety
@@ -100,11 +100,11 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
                     # df = pd.DataFrame(data)
                     # df = df.astype(float)
                     # df.to_csv(f'alpha_test_dir_case_{name}/case_{name}_alpha_{alpha}_time_{t}_timestep_{tL}.csv')
-                    np.savez(f'alpha_test_dir_case_{name}/case_{name}_alpha_{alpha}_time_{t}_timestep_{tL}.npz', **data)
+                    np.savez(f'alpha_test_dir_case_{name}_{start_time}/case_{name}_alpha_{alpha}_time_{t}_timestep_{tL}.npz', **data)
                 elif sig != 0:
                     data = {f'rho_{sig}_{t}': rho_arr, f'u_x_{sig}_{t}': u_x_arr, f'u_y_{sig}_{t}': u_y_arr, f'u_z_{sig}_{t}': u_z_arr,
                             f'B_y_{sig}_{t}': B_y_arr, f'B_z_{sig}_{t}': B_z_arr, f'en_{sig}_{t}': en_arr}
-                    np.savez(f'sigmoid_test/sigmoid_{sig}_time_{t}_timestep_{tL}.npz', **data)
+                    np.savez(f'sigmoid_test_{start_time}/sigmoid_{sig}_time_{t}_timestep_{tL}.npz', **data)
                 # also calculate CFL number
                 if tL != 0:
                     CFL = meshOBJ[stagger_switch, 1, :].max() * dt / dx
