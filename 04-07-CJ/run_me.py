@@ -114,9 +114,9 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
 # fixed_work_alpha_run = partial(Balbas.balbas_one_dimension,
 #      meshOBJ=meshOBJ, Tmax=.2, num_vars=7, Bx=.75, gamma=2, nx=nx, n_plots=5, CFL_safety=40, length=2, name=name, alpha_test=True)
 # # alpha_vals = np.arange(.8, 4, .4)
-#
+# alpha_vals = [1, 1.4]
 # # this is the parrallel run for all of the alpha values // -1 means it runs on all available cores set to whatever you actually want it to be
-# Parallel(n_jobs=-1)(delayed(fixed_work_alpha_run)(alpha=a) for a in alpha_vals)
+# Parallel(n_jobs=2)(delayed(fixed_work_alpha_run)(alpha=a) for a in alpha_vals)
 
 # plotting alpha graphs (working in the testing.ipynb file)
 name = 'sigmoid'
@@ -126,6 +126,7 @@ nx = 200
 # Balbas.balbas_one_dimension(meshOBJ, alpha=1.4, Tmax=.2, num_vars=7, Bx=.75, gamma=2, nx=nx, n_plots=10, CFL_safety=40, length=2, name=name, alpha_test=False, sigmoid_test=True)
 #################################### Sigmoid IC Runs ####################################
 sigmoid_vals = np.arange(1, 50, 10); mesh_inputs = []
+directory = f'sigmoid_test' # directory = 'sigmoid_test'
 for sig in sigmoid_vals: mesh_inputs.append(initialize(name=name, num_vars=7, nx=nx, gamma=2, sigmoid_value=sig))
 os.mkdir(f'sigmoid_test')
 fixed_work_sigmoid_run = partial(Balbas.balbas_one_dimension,
@@ -136,13 +137,13 @@ Parallel(n_jobs=-1)(delayed(fixed_work_sigmoid_run)(meshOBJ=mesh, sig=sig) for m
 
 
 #################################### getting data after runs ####################################
-directory = f'alpha_test_dir_case_{name}' # directory = 'sigmoid_test'
 # these are for all alpha/sigma and are organized by <alpha/sigma>_<time> for plotting or other purposes
 B_y = {}; B_z = {}
 rho = {}; en = {}
 u_x = {}; u_y = {}; u_z = {}
 for file in os.listdir(directory):
     full_path = os.path.join(directory, file)
+    print(full_path)
     split_name = file.split('_')
     case = split_name[1]; var = split_name[3]; t = split_name[5] # val will be either alpha or sigma depending on what directory is commented
     data = np.load(full_path)
