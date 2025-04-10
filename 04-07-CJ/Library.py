@@ -73,8 +73,8 @@ def animate(mesh, stagger_switch, tL, now, alpha, Tmax, nx, dt, dx, num_vars,nam
         os.mkdir(plot_dir+"/u_x")
         os.mkdir(plot_dir+"/u_y")
         os.mkdir(plot_dir+"/u_z")
-        os.mkdir(plot_dir+"/B_x")
         os.mkdir(plot_dir+"/B_y")
+        os.mkdir(plot_dir+"/B_z")
         os.mkdir(plot_dir+"/energy")
         os.mkdir(plot_dir+"/pressure")
         print(f"Plotting directories created. Saving new plots")
@@ -93,9 +93,9 @@ def animate(mesh, stagger_switch, tL, now, alpha, Tmax, nx, dt, dx, num_vars,nam
             name = 'u_z'
             meshOBJ[stagger_switch, 3, :] /= meshOBJ[stagger_switch, 0, :] # divide by rho
         elif i == 4:
-            name = 'B_x'
-        elif i == 5:
             name = 'B_y'
+        elif i == 5:
+            name = 'B_z'
         elif i == 6:
             name = 'energy'
         elif i == 7:
@@ -116,9 +116,9 @@ def animate(mesh, stagger_switch, tL, now, alpha, Tmax, nx, dt, dx, num_vars,nam
         plt.close()
 
     rho_arr = meshOBJ[stagger_switch, 0, :]
-    u_x_arr = meshOBJ[stagger_switch, 1, :] / rho_arr # does this do this twice ie. line 87?
-    u_y_arr = meshOBJ[stagger_switch, 2, :] / rho_arr
-    u_z_arr = meshOBJ[stagger_switch, 3, :] / rho_arr
+    u_x_arr = meshOBJ[stagger_switch, 1, :]#  / rho_arr # does this do this twice ie. line 87?
+    u_y_arr = meshOBJ[stagger_switch, 2, :]#  / rho_arr
+    u_z_arr = meshOBJ[stagger_switch, 3, :]#  / rho_arr
     B_y_arr = meshOBJ[stagger_switch, 4, :]
     B_z_arr = meshOBJ[stagger_switch, 5, :]
     en_arr = meshOBJ[stagger_switch, 6, :]
