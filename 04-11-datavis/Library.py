@@ -62,7 +62,12 @@ def animate(mesh, stagger_switch, tL, now, alpha, Tmax, nx, dt, dx, num_vars,nam
 
     meshOBJ = mesh.copy()
     # commented out for now so I dont get loaded with files
-    plot_dir = 'Plots--a=' + str(alpha) + '_Tmax=' + str(Tmax) + '_nx=' + str(nx) + '_dt=' + str(dt) + '_dx=' + str(dx)
+
+    holder_dir = "plots" # need a holder directory for the plots so that gitignore functions properly
+    if not os.path.isdir(holder_dir):
+        os.mkdir(holder_dir)
+
+    plot_dir = 'plots/Plots--a=' + str(alpha) + '_Tmax=' + str(Tmax) + '_nx=' + str(nx) + '_dt=' + str(dt) + '_dx=' + str(dx)
     if name == 'sigmoid': plot_dir += '_sig_' + str(sig)
     # check if directories exist
     if os.path.exists(plot_dir):

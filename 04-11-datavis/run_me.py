@@ -106,7 +106,7 @@ def run(name='Brio&Wu', test=False, alpha=1.4, Tmax=.2,
                       num_vars=7, Bx=.75, gamma=2, nx=200, n_plots=10,
                         CFL_safety=40, length=2, alpha_test=False, sigmoid_value=0):
 
-    formatted_time = datetime.now().strftime("%H:%M:%S")
+    formatted_time = datetime.now().strftime("%H-%M-%S")
     os.mkdir(f'sigmoid_test_{formatted_time}') # there is probably a better way to do this call specifically without rewriting it, but it works for now
     os.mkdir(f'alpha_test_{name}_{formatted_time}')
     if name == 'sigmoid' and  ~test:
