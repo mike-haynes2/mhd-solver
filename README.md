@@ -22,3 +22,10 @@ There are other initial test cases run that are under the names of 'slow shock',
 The deltas function is used to calculate both the spatial and temporal integrals of Eq. (2.5). The function is defined in the footnote of p.264. We have also written a 3D version of the function, which handles vector (u, B) input. 
 #### minmod.py
 The minmod function is used to calculate both the spatial and temporal integrals of Eq. (2.5). The function is defined at the top of p.265. We have also written a 3D version of the function, which handles vector (u, B) input. 
+
+### INSTRUCTIONS FOR RUNNING AND PLOTTING AS OF 04/11 ###
+1. Decide on the initial states. The states and their initial conditions are listed in run_me.py lines 20-117
+2. The initial state will have a name. Input this name (as a string) into run_me.py line 174 if running a single test, or into lines 166 or 171 if running a collection of sigmoid or alpha tests, respectively. If either sigmoid or alpha tests are being run, comment out line 175 and uncomment line 168 or 172, respectively. 
+3. At the terminal, run run_me.py. This will generate an output folder and a collection of zip files containing output data at each time step. The name of this new folder should go into bruh.py line 12.
+4. Once the program run_me.py has run, run bruh.py at the terminal. This will generate output plots based on the plotting routing contained within bruh.
+

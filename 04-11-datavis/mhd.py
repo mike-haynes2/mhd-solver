@@ -106,6 +106,10 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
                             f'B_y_{sig}_{t}': B_y_arr, f'B_z_{sig}_{t}': B_z_arr, f'en_{sig}_{t}': en_arr}
                     np.savez(f'sigmoid_test_{start_time}/sigmoid_{sig}_time_{t}_timestep_{tL}.npz', **data)
                 # also calculate CFL number
+                else: 
+                    data = {f'rho_{alpha}_{t}': rho_arr, f'u_x_{alpha}_{t}': u_x_arr, f'u_y_{alpha}_{t}': u_y_arr, f'u_z_{alpha}_{t}': u_z_arr,
+                        f'B_y_{alpha}_{t}': B_y_arr, f'B_z_{alpha}_{t}': B_z_arr, f'en_{alpha}_{t}': en_arr}
+                    np.savez(f'alpha_test_{name}_{start_time}/case_{name}_alpha_{alpha}_time_{t}_timestep_{tL}.npz', **data)
                 if tL != 0:
                     CFL = meshOBJ[stagger_switch, 1, :].max() * dt / dx
                     print('CFL is',CFL)

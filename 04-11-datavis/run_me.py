@@ -25,10 +25,10 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
             plt.plot(np.linspace(-1, 1, nx), en)
             meshOBJ[0, 0, :] = rho ; meshOBJ[0, -1, :] = en
             meshOBJ[0, 1:-1, 0:(nx // 2)] = np.array([[ 0.0, 0.0, 0.0, 1.0, 0.0]]).T
-            meshOBJ[0, 1:-1, (nx // 2):nx] = np.array([[0.0, 0.0, 0.0, -1.0, 0.0]]).T  # WHY DIVIDE BY 10?
+            meshOBJ[0, 1:-1, (nx // 2):nx] = np.array([[0.0, 0.0, 0.0, -1.0, 0.0]]).T  
+
         case 'Dai&Woodward':
             pass
-            ######### THIS CASE REQUIRES BX TO BE CHANGING SO MAYBE NOT ##############
             # ro0_neg = 1.08; pr0_neg = 0.95
             # ux0 = 1.2; uy0 = 0.01; uz0 = 0.5
             # bx0 = 2. / np.sqrt(16 * np.arctan(1.)); by0 = 3.6/ np.sqrt(16 * np.arctan(1.)); bz0 = 2. / np.sqrt(16 * np.arctan(1.))
@@ -40,15 +40,16 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
             # bx0 = 2. / np.sqrt(16 * np.arctan(1.)); by0 = 4. / np.sqrt(16 * np.arctan(1.)); bz0 = 2. / np.sqrt(16 * np.arctan(1.))
             # b_vec_pos = np.array([bx0, by0, bz0])
             # u_vec_pos = np.array([ux0, uy0, uz0])
-            # meshOBJ[0, :, 0:(nx // 2)] = np.array([[1.08, 1.2 / 1.08, 0.01 / 1.08, 0.5 / 1.08, 1.0, 0.0, e0]]).T
-            # meshOBJ[0, :, (nx // 2):nx] = np.array([[0.125, 0.0, 0.0, 0.0, -1.0, 0.0, e0 / 10.]]).T
+            e0 = (1. / (gamma - 1.)) - (1. / 2.)
+            meshOBJ[0, :, 0:(nx // 2)] = np.array([[1.08, 1.2 / 1.08, 0.01 / 1.08, 0.5 / 1.08, 1.0, 0.0, e0]]).T
+            meshOBJ[0, :, (nx // 2):nx] = np.array([[0.125, 0.0, 0.0, 0.0, -1.0, 0.0, e0 / 10.]]).T
 
         case 'Brio&Wu':
 
-            e0 = (1. / (gamma - 1.)) - (1. / 2.) # ASK ABOUT THIS. WHERE DO WE INCORPERATE PRESSURE TO IC?
+            e0 = (1. / (gamma - 1.)) - (1. / 2.) 
 
             meshOBJ[0, :, 0:(nx // 2)] = np.array([[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, e0]]).T
-            meshOBJ[0, :, (nx // 2):nx] = np.array([[0.125, 0.0, 0.0, 0.0, -1.0, 0.0, e0 / 10.]]).T # WHY DIVIDE BY 10?
+            meshOBJ[0, :, (nx // 2):nx] = np.array([[0.125, 0.0, 0.0, 0.0, -1.0, 0.0, e0 / 10.]]).T 
 
             # ro0_neg = 1.; pr0_neg = 1.
             # ux0 = 0.; uy0 = 0.; uz0 = 0.
@@ -62,7 +63,7 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
             # b_vec_pos = np.array([bx0, by0, bz0])
             # u_vec_pos = np.array([ux0, uy0, uz0])
 
-        case 'slow_shock':
+        case 'slow-shock':
             pass
             # ro0_neg = 1.368; pr0_neg = 1.769
             # ux0 = 0.269; uy0 = 1.0; uz0 = 0.
@@ -96,9 +97,32 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
             e0 = (1. / (gamma - 1.)) - (1. / 2.)
             meshOBJ[0, :, 0:(nx // 2)] = np.array([[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, e0]]).T
             meshOBJ[0, :, (nx // 2):nx] = np.array([[0.2, 1.186 * 0.2, 2.967 * 0.2, 0.0, 1.6405, 0.0, e0 / 10.]]).T
+
+        case 'alfven':
+            pass
+            # ro0_neg = 1.368; pr0_neg = 1.769
+            # ux0 = 0.269; uy0 = 1.0; uz0 = 0.
+            # bx0 = 1.; by0 = 0.; bz0 = 0.
+            # b_vec_neg = np.array([bx0, by0, bz0])
+            # u_vec_neg = np.array([ux0, uy0, uz0])
+
+            # ro0_pos = 1.; pr0_pos = 1.
+            # ux0 = 0.; uy0 = 0.; uz0 = 0.
+            # bx0 = 1.; by0 = 1.; bz0 = 0
+            # b_vec_pos = np.array([bx0, by0, bz0])
+            # u_vec_pos = np.array([ux0, uy0, uz0])
+            e0 = (1. / (gamma - 1.)) - (1. / 2.)
+            # B_X must also be 1.0 not .75
+            meshOBJ[0, :, :] = np.array([[1., 0., 1., 1., 1., 0., e0]]).T
+            # meshOBJ[0, :, (nx // 2):nx] = np.array([[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, e0 / 10.]]).T
+        case 'sod-shock':
+            e0 = (1. / (gamma - 1.)) - (1. / 2.) 
+
+            meshOBJ[0, :, 0:(nx // 2)] = np.array([[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, e0]]).T
+            meshOBJ[0, :, (nx // 2):nx] = np.array([[0.125, 0.0, 0.0, 0.0, 0.0, 0.0, e0 / 10.]]).T 
         case _:
             raise ValueError(
-                'invalid testing: use ""Dai & Woodward"" or  ""Brio & Wu"" or ""slow shock"" or ""rarefaction""')
+                'invalid testing: use ""Dai&Woodward"" or  ""Brio&Wu"" or ""slow-shock"" or ""rarefaction""')
 
     return meshOBJ
 
@@ -108,6 +132,7 @@ def run(name='Brio&Wu', test=False, alpha=1.4, Tmax=.2,
 
     formatted_time = datetime.now().strftime("%H-%M-%S")
     os.mkdir(f'sigmoid_test_{formatted_time}') # there is probably a better way to do this call specifically without rewriting it, but it works for now
+    # os.mkdir(f'sigmoid_test_bruh')
     os.mkdir(f'alpha_test_{name}_{formatted_time}')
     if name == 'sigmoid' and  ~test:
         sigmoid_vals = np.arange(1, 50, 10); mesh_inputs = []
@@ -137,32 +162,37 @@ def run(name='Brio&Wu', test=False, alpha=1.4, Tmax=.2,
                                     gamma=gamma, nx=nx, n_plots=n_plots, CFL_safety=CFL_safety,
                                     length=length, name=name, alpha_test=False, start_time=formatted_time)
 
-
-input_dict_base = {'name':'bruh', 'alpha':1.4, 'test':False, 'Tmax':0.2, 'num_vars':7, 'Bx':.75,
-     'gamma':2, 'nx':200, 'n_plots':5, 'CFL_safety':40,
+### MODIFY HERE ###
+input_dict_base = {'name':'bruh', 'alpha':1.5, 'test':True, 'Tmax':0.5, 'num_vars':7, 'Bx':0.75,
+     'gamma':2, 'nx':800, 'n_plots':30, 'CFL_safety':6.,
      'length':2, 'alpha_test':False, 'sigmoid_value':0}
 
+### TAKES INPUT_DICT_BASE AND MODIFIES ONLY THE VARIABLES SPECIFIED ###
 input_dict_sigmoid = {**input_dict_base, 'name':'sigmoid'}
 # input_dict_sigmoid_test = {**input_dict_base, 'name':'sigmoid', 'sigmoid_value':5, 'test':True}
 # run(**input_dict_sigmoid) # sigmoid case
 
-input_dict_alpha_test = {**input_dict_base, 'name':'Brio&Wu', 'alpha_test':True, 'test':True}
+# input_dict_alpha_test = {**input_dict_base, 'name':'Brio&Wu', 'alpha_test':True, 'test':True} # test=true runs one rather than a collection of tests
 input_dict_alpha = {**input_dict_base, 'name':'Brio&Wu','alpha_test':True, 'alpha':1}
-run(**input_dict_alpha)
+# run(**input_dict_alpha)
 
+input_single_other = {**input_dict_base, 'name':'sod-shock', 'test':True, 'Bx':0.}
+run(**input_single_other)
 
 #################################### getting data after runs ####################################
 # %%
 # import os
 # import numpy as np
-#
+# from datavis import visualize_mhd_data
+
+
 # B_y = {};B_z = {}
 # rho = {};en = {}
 # u_x = {};u_y = {};u_z = {}
-# directory = 'sigmoid_test_14:35:03'# YOU WILL NEED TO CHANGE THIS BASED ON WHAT YOU NEED
+# # directory = 'sigmoid_test_bruh'# YOU WILL NEED TO CHANGE THIS BASED ON WHAT YOU NEED
 # directory = 'alpha_test_Brio&Wu_14:57:23'
 # # SEE LINE 103 AND 107 FOR FORMAT OF THE NAMES IF YOU WANT TO FIND A CLEVER WAY TO DO IT
-
+# t_vals =[];var_vals = []
 # for file in os.listdir(directory):
 #     full_path = os.path.join(directory, file)
 #     split_name = file.split('_')
@@ -170,9 +200,10 @@ run(**input_dict_alpha)
 #         case = split_name[0]; var = split_name[1]; t = split_name[3]  # val will be either alpha or sigma depending on what directory is commented
 #     else:
 #         case = split_name[1]; var = split_name[3]; t = split_name[5]
-#
+
+#     t_vals.append(t); var_vals.append(var)
 #     data = np.load(full_path)
-#
+
 #     B_y[f'{var}_{t}'] = data[f'B_y_{var}_{t}']
 #     B_z[f'{var}_{t}'] = data[f'B_z_{var}_{t}']
 #     u_x[f'{var}_{t}'] = data[f'u_x_{var}_{t}']
@@ -182,6 +213,20 @@ run(**input_dict_alpha)
 #     rho[f'{var}_{t}'] = data[f'rho_{var}_{t}']
 
 
+# t_vals = np.unique(t_vals); var_vals = np.unique(var_vals)
+# for t_val in t_vals:
+#     for count, (key, value) in enumerate(B_y.items()):
+#         var, t = key.split('_')
+#         #### time plotting ####
+#         print(t)
+#         print(var)
+#         if t == t_val:
+#             plt.plot(value, label=f'{var}', alpha=.3, lw=2)
+#     plt.title(f'Time: {t_val}')
+#     plt.xlabel('Position')
+#     plt.ylabel('B_y') # NEEDTO CHANGE THIS TO WHATEVER YOU ARE CALLING ASBFKJASDBFKJASDBFKASBFKBAF
+#     plt.legend()
+#     plt.show()
 
 
 

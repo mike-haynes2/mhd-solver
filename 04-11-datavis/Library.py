@@ -90,13 +90,13 @@ def animate(mesh, stagger_switch, tL, now, alpha, Tmax, nx, dt, dx, num_vars,nam
             name = 'rho'
         elif i == 1:
             name = 'u_x'
-            meshOBJ[stagger_switch, 1, :] /= meshOBJ[stagger_switch, 0, :] # divide by rho
+            meshOBJ[stagger_switch, 1, :] # /= meshOBJ[stagger_switch, 0, :] # divide by rho
         elif i == 2:
             name = 'u_y'
-            meshOBJ[stagger_switch, 2, :] /= meshOBJ[stagger_switch, 0, :] # divide by rho
+            meshOBJ[stagger_switch, 2, :] # /= meshOBJ[stagger_switch, 0, :] # divide by rho
         elif i == 3:
             name = 'u_z'
-            meshOBJ[stagger_switch, 3, :] /= meshOBJ[stagger_switch, 0, :] # divide by rho
+            meshOBJ[stagger_switch, 3, :] # /= meshOBJ[stagger_switch, 0, :] # divide by rho
         elif i == 4:
             name = 'B_y'
         elif i == 5:
