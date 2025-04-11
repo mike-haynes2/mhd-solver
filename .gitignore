@@ -1,2 +1,3 @@
 *.png
 plots/**
+**/__pycache__/
