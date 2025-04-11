@@ -1,14 +1,14 @@
-import numpy as np
-import math as m
+import numpy as np # type: ignore
+import math as m 
 
-from scipy import constants
-import matplotlib.pyplot as plt
+from scipy import constants # type: ignore
+import matplotlib.pyplot as plt # type: ignore
 import os
 
 from Library import minmod, calc_f, calc_f_cell, animate
 import configuration as c
 from datetime import datetime
-from tqdm import tqdm
+from tqdm import tqdm # type: ignore
 
 ########## Variable Indices ###########
 # 0: rho 

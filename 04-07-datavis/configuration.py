@@ -1,8 +1,8 @@
-import numpy as np
-import math as m
+import numpy as np # type: ignore
+import math as m 
 
-from scipy import constants
-import matplotlib.pyplot as plt
+from scipy import constants  # type: ignore
+import matplotlib.pyplot as plt # type: ignore
 
 # would be nice to include the match case thing with the other shock configurations (and we can futher validate the code with the hydrodynamic test case)
 

@@ -1,7 +1,7 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-from mpl_toolkits.mplot3d import Axes3D 
+import numpy as np                       # type: ignore
+import matplotlib.pyplot as plt          # type: ignore
+import matplotlib.animation as animation # type: ignore
+from mpl_toolkits.mplot3d import Axes3D  # type: ignore
 
 
 # Helper functions
@@ -17,7 +17,7 @@ def save_animation(anim, filename):
 
 # 1D Animation for scalar and vector fields
 def generate_1d_animation(scalars, vectors, spatial_coords, time_coords,
-                          save_stills, stills_frames, stills_prefix):
+                          save_stills, stills_frames, stills_prefix, staggered_plot=True):
 
     # scalars  -- list of tuples (name, data) for scalar fields
     # vectors  -- list of tuples (name, data) for vector fields
@@ -27,8 +27,15 @@ def generate_1d_animation(scalars, vectors, spatial_coords, time_coords,
     # stills_frames -- list of frames to save as stills
     # stills_prefix -- prefix for stills filenames
 
+    # staggered_plot -- boolean to stagger the plot of quantities (default is False)
+
     # identify how many things we need to plot
+      
+    
     n_plots = len(scalars) + len(vectors)
+    
+    n_plots_scalars = len(scalars) 
+    n_plots_vectors = 3*len(vectors)
     
     # create matplotlib objects
     fig, axs = plt.subplots(n_plots, 1, figsize=(8, 2 * n_plots), sharex=True)
@@ -100,8 +107,7 @@ def generate_1d_animation(scalars, vectors, spatial_coords, time_coords,
         for name, _ in vectors: # grab data and metadata from vectors list
             axs[i].set_title(f"{name} t={time_coords[frame]:.2f}")
             i += 1
-        
-        # dummy return to satisfy FuncAnimation requirements
+
         return []
     
     # Create the animation object
@@ -115,6 +121,70 @@ def generate_1d_animation(scalars, vectors, spatial_coords, time_coords,
             update(frame) # update the plot to the correct frame
             fig.savefig(f"{stills_prefix}_frame{frame}.png") # save the still
             print(f"Saved still: {stills_prefix}_frame{frame}.png") # print confirmation and filename
+
+        if staggered_plot:
+            
+            if n_plots_scalars != 0:
+                comp_fig, comp_axs =  plt.subplots(n_plots_scalars, 1, figsize=(8, 2 * n_plots_scalars), sharex=True)
+            
+            
+            if n_plots_vectors != 0: 
+                comp_fig_vec, comp_axs_vec = plt.subplots(n_plots_vectors, 1, figsize=(8, 2 * n_plots_vectors), sharex=True)
+
+            if n_plots == 1: 
+                comp_axs = [comp_axs]
+
+
+            # Choose a colormap and generate colors for each frame
+            cmap = plt.get_cmap('plasma')
+            n_frames = len(stills_frames)
+            # In case of a single frame avoid division by zero:
+            if n_frames > 1:
+                colors = [cmap(i / (n_frames - 1)) for i in range(n_frames)]
+            else:
+                colors = [cmap(0.5)]
+            
+            idx = 0
+
+              
+            
+            # overplot all the scalar data
+            for i, (name, data) in enumerate(scalars): # grab data and metadata from scalars list
+                for j, frame in enumerate(stills_frames):
+
+                    # plot the data at the current frame
+                    comp_axs[i].plot(spatial_coords, 
+                                        data[frame, :], 
+                                        label=f"t={time_coords[frame]:.2f}", 
+                                        color = colors[j],
+                                        alpha=0.5)
+                    
+                    # add plot metadata
+                    comp_axs[i].set_ylabel(name)
+                    comp_axs[i].legend(loc = "upper right")
+                    idx += 1
+
+            # Plot vector data (three components per vector)
+
+
+            for j, (name, data) in enumerate(vectors): # grab data and metadata from vectors list
+                
+                ax_index = j # index for the vector data
+                for comp in range(3):
+                    for k, frame in enumerate(stills_frames):
+                        comp_axs_vec[ax_index].plot(spatial_coords, 
+                                                data[frame, :, comp], 
+                                                label=f"t={time_coords[frame]:.2f}",
+                                                color = colors[k], 
+                                                alpha=0.5)
+                        
+                        comp_axs_vec[ax_index].set_ylabel(name)
+                        comp_axs_vec[ax_index].legend(loc = "upper right")
+                        
+
+            comp_axs[-1].set_xlabel("Spatial coordinate")
+            comp_fig.savefig(f"{stills_prefix}_comp.png") # save the still
+            print(f"Saved still: {stills_prefix}_comp.png") # print confirmation and filename
 
     # return the animation object        
     return ani
@@ -309,5 +379,5 @@ if __name__ == "__main__":
     
     # example usage of the visualize_mhd_data function
     # Animate all plots and save stills at frames 0, 50, and 99.
-    visualize_mhd_data(rho = None, p = p, energy = None, V = V, B = B, spatial_coords = None, time_coords = None,
-                       animate=True, save_stills=True, stills_frames=[0, 50, 99])
+    visualize_mhd_data(rho = rho, p = p, energy = None, V = None, B = None, spatial_coords = None, time_coords = None,
+                       animate=True, save_stills=True, stills_frames=[10,12,14,16,18,20,22,24,26,28,30])

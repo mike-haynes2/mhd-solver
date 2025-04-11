@@ -1,8 +1,8 @@
-import numpy as np
+import numpy as np # type: ignore
 import math as m
 
-from scipy import constants
-import matplotlib.pyplot as plt
+from scipy import constants # type: ignore
+import matplotlib.pyplot as plt # type: ignore
 import configuration as c
 import os
 
