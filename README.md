@@ -1,5 +1,5 @@
-# mhd-solver: Computational Physics Term Project
-# A Multi-Dimensional, Distributed, Non-Oscillatory Ideal Magnetohydrodynamics Central Differencing Framework
+#### mhd-solver: Computational Physics Term Project (PHYS 6260)
+# A One-Dimensional, Distributed, Non-Oscillatory Ideal Magnetohydrodynamics Central Differencing Framework
 ## Created 03/21
 ### C. Michael Haynes, Neil Baker, Kenneth Thompson, Corinne Hill, Eden Schapera
 
