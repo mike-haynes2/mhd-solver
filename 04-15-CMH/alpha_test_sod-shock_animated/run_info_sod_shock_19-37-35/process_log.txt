@@ -1,0 +1,340 @@
+time t= 0
+progress is  0.0 % done
+Plotting directories created. Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL0.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL0.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL0.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL0.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL0.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL0.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL0.png
+time t= 0.016666666666666663
+progress is  3.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL34.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL34.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL34.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL34.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL34.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL34.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL34.png
+CFL is 0.0010697402293631086
+time t= 0.03333333333333327
+progress is  6.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL68.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL68.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL68.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL68.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL68.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL68.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL68.png
+CFL is 0.00046961129460259887
+time t= 0.04999999999999988
+progress is  10.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL102.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL102.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL102.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL102.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL102.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL102.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL102.png
+CFL is 0.0006496372746197295
+time t= 0.06666666666666649
+progress is  13.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL136.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL136.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL136.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL136.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL136.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL136.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL136.png
+CFL is 0.0006418020079275992
+time t= 0.08333333333333309
+progress is  16.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL170.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL170.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL170.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL170.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL170.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL170.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL170.png
+CFL is 0.00046281844976144953
+time t= 0.0999999999999997
+progress is  20.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL204.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL204.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL204.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL204.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL204.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL204.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL204.png
+CFL is 0.0006812114419398428
+time t= 0.11666666666666631
+progress is  23.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL238.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL238.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL238.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL238.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL238.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL238.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL238.png
+CFL is 0.0006270388605693375
+time t= 0.13333333333333292
+progress is  26.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL272.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL272.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL272.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL272.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL272.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL272.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL272.png
+CFL is 0.0004687866680674128
+time t= 0.14999999999999952
+progress is  30.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL306.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL306.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL306.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL306.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL306.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL306.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL306.png
+CFL is 0.0005653715153334025
+time t= 0.16666666666666613
+progress is  33.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL340.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL340.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL340.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL340.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL340.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL340.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL340.png
+CFL is 0.0006105070794945736
+time t= 0.18333333333333274
+progress is  36.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL374.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL374.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL374.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL374.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL374.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL374.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL374.png
+CFL is 0.0004496026304410233
+time t= 0.19999999999999934
+progress is  40.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL408.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL408.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL408.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL408.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL408.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL408.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL408.png
+CFL is 0.0006267069291286606
+time t= 0.21666666666666595
+progress is  43.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL442.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL442.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL442.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL442.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL442.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL442.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL442.png
+CFL is 0.0005925414509082591
+time t= 0.23333333333333256
+progress is  46.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL476.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL476.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL476.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL476.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL476.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL476.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL476.png
+CFL is 0.0004414343177967024
+time t= 0.24999999999999917
+progress is  50.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL510.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL510.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL510.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL510.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL510.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL510.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL510.png
+CFL is 0.0005192201479007965
+time t= 0.2666666666666658
+progress is  53.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL544.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL544.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL544.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL544.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL544.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL544.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL544.png
+CFL is 0.0006336103530745508
+time t= 0.2833333333333324
+progress is  56.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL578.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL578.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL578.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL578.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL578.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL578.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL578.png
+CFL is 0.0004494389425940051
+time t= 0.299999999999999
+progress is  60.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL612.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL612.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL612.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL612.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL612.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL612.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL612.png
+CFL is 0.0005046235277243417
+time t= 0.3166666666666656
+progress is  63.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL646.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL646.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL646.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL646.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL646.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL646.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL646.png
+CFL is 0.0006159249107512322
+time t= 0.3333333333333322
+progress is  66.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL680.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL680.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL680.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL680.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL680.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL680.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL680.png
+CFL is 0.00044461903454014645
+time t= 0.3499999999999988
+progress is  70.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL714.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL714.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL714.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL714.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL714.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL714.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL714.png
+CFL is 0.0004849369312073037
+time t= 0.3666666666666654
+progress is  73.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL748.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL748.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL748.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL748.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL748.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL748.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL748.png
+CFL is 0.0006634981895348148
+time t= 0.383333333333332
+progress is  76.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL782.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL782.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL782.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL782.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL782.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL782.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL782.png
+CFL is 0.0004550837649336201
+time t= 0.39999999999999863
+progress is  80.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL816.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL816.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL816.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL816.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL816.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL816.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL816.png
+CFL is 0.00048654472124728905
+time t= 0.41666666666666524
+progress is  83.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL850.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL850.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL850.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL850.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL850.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL850.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL850.png
+CFL is 0.0006384818247170568
+time t= 0.43333333333333185
+progress is  86.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL884.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL884.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL884.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL884.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL884.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL884.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL884.png
+CFL is 0.00047804181932961307
+time t= 0.44999999999999846
+progress is  90.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL918.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL918.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL918.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL918.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL918.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL918.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL918.png
+CFL is 0.0005124994510208955
+time t= 0.46666666666666506
+progress is  93.33 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL952.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL952.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL952.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL952.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL952.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL952.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL952.png
+CFL is 0.0006562421792868786
+time t= 0.48333333333333167
+progress is  96.67 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL986.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL986.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL986.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL986.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL986.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL986.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL986.png
+CFL is 0.0006590732990952715
+time t= 0.4999999999999983
+progress is  100.0 % done
+Saving new plots
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/rho/tL1020.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_x/tL1020.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_y/tL1020.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/u_z/tL1020.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_y/tL1020.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/B_z/tL1020.png
+plots/Plots--a=1.2_Tmax=0.5_nx=800_dt=0.0004901960784313725_dx=0.0025/energy/tL1020.png
+CFL is 0.00040613127355194597
