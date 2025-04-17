@@ -12,7 +12,7 @@ B_y = {};B_z = {}
 rho = {};en = {}
 u_x = {};u_y = {};u_z = {}
 # directory = 'sigmoid_test_10-38-35'# YOU WILL NEED TO CHANGE THIS BASED ON WHAT YOU NEED
-directory = 'alpha_test_rarefaction_23-08-59'
+directory = 'alpha_test_alfven2_20-41-32'
 # SEE LINE 103 AND 107 FOR FORMAT OF THE NAMES IF YOU WANT TO FIND A CLEVER WAY TO DO IT
 t_vals =[]
 var_vals = []

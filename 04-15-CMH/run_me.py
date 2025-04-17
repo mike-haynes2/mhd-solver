@@ -9,6 +9,9 @@ from joblib import Parallel, delayed
 from functools import partial
 
 
+# added 04-16 for the Alfven wave case
+from Library import calc_f
+
 
 def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha, Tmax, t, nt, tL, num_vars, Bx, gamma, nx, lam, n_plots
     """returns the initial conditions based on the type of problem specified by the 'name' variable"""
@@ -115,6 +118,27 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
             # B_X must also be 1.0 not .75
             meshOBJ[0, :, :] = np.array([[1., 0., 1., 1., 1., 0., e0]]).T
             # meshOBJ[0, :, (nx // 2):nx] = np.array([[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, e0 / 10.]]).T
+        case 'alfven2':
+            pass
+
+            # initialize alfven wave according to this test scenario:
+            # https://www.astro.princeton.edu/~jstone/Athena/tests/linear-waves/linear-waves.html
+            # (also gives the expression to calculate error)
+
+            amp = 1.e-05
+            # expression for the perturbation:
+            # d U = amp * flux[i] * sin(2 pi x)
+            Xs = np.linspace(start=-1.,stop=1.,num=nx)
+            sins = np.sin(2.*np.pi*Xs)
+
+            e0 = (1. / (gamma - 1.)) - (1. / 2.)
+            # B_X must also be 1.0 not .75
+            meshOBJ[0, :, :] = np.array([[1., 0., 1., 1., 1., 0., e0]]).T
+            f_vals_A = calc_f(meshOBJ[0, :, :], 1., gamma)
+            delta_vals = amp * f_vals_A * sins
+            meshOBJ[0, :, :] += meshOBJ[0, :, :]  * delta_vals
+
+
         case 'sod-shock':
             e0 = (1. / (gamma - 1.)) - (1. / 2.) 
 
@@ -163,8 +187,8 @@ def run(name='Brio&Wu', test=False, alpha=1.4, Tmax=.2,
                                     length=length, name=name, alpha_test=False, start_time=formatted_time)
 
 ### MODIFY HERE ###
-input_dict_base = {'name':'bruh', 'alpha':1.001, 'test':True, 'Tmax':0.1, 'num_vars':7, 'Bx':0.75,
-     'gamma':2, 'nx':800, 'n_plots':50, 'CFL_safety':230.,
+input_dict_base = {'name':'bruh', 'alpha':1.3, 'test':True, 'Tmax':1., 'num_vars':7, 'Bx':0.75,
+     'gamma':2, 'nx':400, 'n_plots':100, 'CFL_safety':50.,
      'length':2, 'alpha_test':False, 'sigmoid_value':0}
 
 ### TAKES INPUT_DICT_BASE AND MODIFIES ONLY THE VARIABLES SPECIFIED ###
@@ -176,7 +200,7 @@ input_dict_sigmoid = {**input_dict_base, 'name':'sigmoid'}
 input_dict_alpha = {**input_dict_base, 'name':'Brio&Wu','alpha_test':True, 'alpha':1}
 # run(**input_dict_alpha)
 
-input_single_other = {**input_dict_base, 'name':'rarefaction', 'test':True, 'Bx':0.75, 'gamma':(2.)}
+input_single_other = {**input_dict_base, 'name':'alfven2', 'test':True, 'Bx':1.0, }
 run(**input_single_other)
 
 #################################### getting data after runs ####################################
