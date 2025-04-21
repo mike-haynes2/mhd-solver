@@ -126,9 +126,10 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
             # (also gives the expression to calculate error)
 
             amp = 1.e-05
+            length = 20.
             # expression for the perturbation:
             # d U = amp * flux[i] * sin(2 pi x)
-            Xs = np.linspace(start=-1.,stop=1.,num=nx)
+            Xs = np.linspace(start=-length/2.,stop=length/2.,num=nx)
             sins = np.sin(2.*np.pi*Xs)
 
             e0 = (1. / (gamma - 1.)) - (1. / 2.)
@@ -136,7 +137,10 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
             meshOBJ[0, :, :] = np.array([[1., 0., 1., 1., 1., 0., e0]]).T
             f_vals_A = calc_f(meshOBJ[0, :, :], 1., gamma)
             delta_vals = amp * f_vals_A * sins
-            meshOBJ[0, :, :] += meshOBJ[0, :, :]  * delta_vals
+            for i in range(1,num_vars):
+                meshOBJ[0, i, :] += meshOBJ[0, i, :]  * delta_vals[i]
+            
+
 
 
         case 'sod-shock':
@@ -151,7 +155,7 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
     return meshOBJ
 
 def run(name='Brio&Wu', test=False, alpha=1.4, Tmax=.2,
-                      num_vars=7, Bx=.75, gamma=2, nx=200, n_plots=10,
+                      num_vars=7, Bx=.75, gamma=2, nx=200, n_plots=20,
                         CFL_safety=40, length=2, alpha_test=False, sigmoid_value=0):
 
     formatted_time = datetime.now().strftime("%H-%M-%S")
@@ -187,9 +191,9 @@ def run(name='Brio&Wu', test=False, alpha=1.4, Tmax=.2,
                                     length=length, name=name, alpha_test=False, start_time=formatted_time)
 
 ### MODIFY HERE ###
-input_dict_base = {'name':'bruh', 'alpha':1.3, 'test':True, 'Tmax':1., 'num_vars':7, 'Bx':0.75,
-     'gamma':2, 'nx':400, 'n_plots':100, 'CFL_safety':50.,
-     'length':2, 'alpha_test':False, 'sigmoid_value':0}
+input_dict_base = {'name':'bruh', 'alpha':1.4, 'test':True, 'Tmax':2., 'num_vars':7, 'Bx':0.75,
+     'gamma':2, 'nx':2000, 'n_plots':100, 'CFL_safety':80.,
+     'length':20, 'alpha_test':False, 'sigmoid_value':0}
 
 ### TAKES INPUT_DICT_BASE AND MODIFIES ONLY THE VARIABLES SPECIFIED ###
 input_dict_sigmoid = {**input_dict_base, 'name':'sigmoid'}
@@ -200,7 +204,7 @@ input_dict_sigmoid = {**input_dict_base, 'name':'sigmoid'}
 input_dict_alpha = {**input_dict_base, 'name':'Brio&Wu','alpha_test':True, 'alpha':1}
 # run(**input_dict_alpha)
 
-input_single_other = {**input_dict_base, 'name':'alfven2', 'test':True, 'Bx':1.0, }
+input_single_other = {**input_dict_base, 'name':'alfven2', 'test':True, 'Bx':1.0}
 run(**input_single_other)
 
 #################################### getting data after runs ####################################
