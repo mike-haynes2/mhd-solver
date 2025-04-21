@@ -12,7 +12,7 @@ B_y = {};B_z = {}
 rho = {};en = {}
 u_x = {};u_y = {};u_z = {}
 # directory = 'sigmoid_test_10-38-35'# YOU WILL NEED TO CHANGE THIS BASED ON WHAT YOU NEED
-directory = 'alpha_test_alfven2_19-04-37'
+directory = 'alpha_test_alfven2_21-32-29'
 # SEE LINE 103 AND 107 FOR FORMAT OF THE NAMES IF YOU WANT TO FIND A CLEVER WAY TO DO IT
 t_vals =[]
 var_vals = []
@@ -46,6 +46,7 @@ var_names = ['rho', 'u_x', 'u_y', 'u_z', 'B_y', 'B_z', 'en']
 t_vals = np.unique(t_vals)
 var_vals = np.unique(var_vals)
 
+# should introduce a parameter to determine whether the vertical axis limits are fixed
 def plot_variables(var_dict, name, t_vals, var_vals, save=False, inbuilt_animate=False):
 
     # initialize empty array to store animation material
