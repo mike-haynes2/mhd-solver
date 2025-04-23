@@ -12,7 +12,7 @@ B_y = {};B_z = {}
 rho = {};en = {}
 u_x = {};u_y = {};u_z = {}
 # directory = 'sigmoid_test_10-38-35'# YOU WILL NEED TO CHANGE THIS BASED ON WHAT YOU NEED
-directory = 'alpha_test_alfven2_21-32-29'
+directory = 'alpha_test_sod-shock_animated'
 # SEE LINE 103 AND 107 FOR FORMAT OF THE NAMES IF YOU WANT TO FIND A CLEVER WAY TO DO IT
 t_vals =[]
 var_vals = []
@@ -50,7 +50,7 @@ var_vals = np.unique(var_vals)
 def plot_variables(var_dict, name, t_vals, var_vals, save=False, inbuilt_animate=False):
 
     # initialize empty array to store animation material
-    fig = plt.figure(figsize=[12,10])
+    #fig = plt.figure(figsize=[12,10])
     var_plots = []
     color_assign = {}
     colors = ['salmon', 'peru', 'gold', 'olive', 'greenyellow', 'forestgreen', 'aquamarine', 'teal', 'deepskyblue', 'lightsteelblue', 'navy', 'mediumpurple', 
