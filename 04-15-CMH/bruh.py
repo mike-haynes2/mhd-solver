@@ -12,7 +12,7 @@ B_y = {};B_z = {}
 rho = {};en = {}
 u_x = {};u_y = {};u_z = {}
 # directory = 'sigmoid_test_10-38-35'# YOU WILL NEED TO CHANGE THIS BASED ON WHAT YOU NEED
-directory = 'alpha_test_Brio&Wu_10-39-56'
+directory = 'alpha_test_Dai&Woodward_12-42-55'
 # SEE LINE 103 AND 107 FOR FORMAT OF THE NAMES IF YOU WANT TO FIND A CLEVER WAY TO DO IT
 t_vals =[]
 var_vals = []
@@ -72,7 +72,7 @@ def plot_variables(var_dict, name, t_vals, var_vals, save=False, inbuilt_animate
             if t == t_val:
                 var_lab = f"{float(var):.4f}"
                 #plot_obj = plt.plot(value, label=var_lab, lw=2, color=color_assign[var])
-                plot_obj = plt.plot(value, label=var_lab, lw=2, color='magenta')
+                plot_obj = plt.plot(value, label=var_lab, lw=2, color='chartreuse')
         plt.grid()
         t_val= f"{float(t_val):.4f}"
         title = f'Variable: {name} Time: ' + t_val

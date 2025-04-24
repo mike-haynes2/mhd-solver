@@ -204,7 +204,9 @@ input_dict_sigmoid = {**input_dict_base, 'name':'sigmoid'}
 input_dict_alpha = {**input_dict_base, 'name':'Brio&Wu','alpha_test':True, 'alpha':1}
 # run(**input_dict_alpha)
 
-input_single_other = {**input_dict_base, 'name':'Brio&Wu', 'test':True, 'alpha':0.8, 'Tmax':0.2}
+# try Dai and Woodward case with Bx = 2, gamma = 5/3
+input_single_other = {**input_dict_base, 'name':'Dai&Woodward', 'test':True, 'alpha':0.8, 'Tmax':0.08, 'Bx':2.,'gamma':(5./3.)}
+
 run(**input_single_other)
 
 #################################### getting data after runs ####################################
