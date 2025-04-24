@@ -191,9 +191,9 @@ def run(name='Brio&Wu', test=False, alpha=1.4, Tmax=.2,
                                     length=length, name=name, alpha_test=False, start_time=formatted_time)
 
 ### MODIFY HERE ###
-input_dict_base = {'name':'bruh', 'alpha':1.2, 'test':True, 'Tmax':2., 'num_vars':7, 'Bx':0.75,
-     'gamma':2, 'nx':1000, 'n_plots':100, 'CFL_safety':80.,
-     'length':20, 'alpha_test':False, 'sigmoid_value':0}
+input_dict_base = {'name':'bruh', 'alpha':1.1, 'test':True, 'Tmax':0.2, 'num_vars':7, 'Bx':0.75,
+     'gamma':2, 'nx':800, 'n_plots':125, 'CFL_safety':200.,
+     'length':2, 'alpha_test':False, 'sigmoid_value':0}
 
 ### TAKES INPUT_DICT_BASE AND MODIFIES ONLY THE VARIABLES SPECIFIED ###
 input_dict_sigmoid = {**input_dict_base, 'name':'sigmoid'}
@@ -204,7 +204,7 @@ input_dict_sigmoid = {**input_dict_base, 'name':'sigmoid'}
 input_dict_alpha = {**input_dict_base, 'name':'Brio&Wu','alpha_test':True, 'alpha':1}
 # run(**input_dict_alpha)
 
-input_single_other = {**input_dict_base, 'name':'slow-shock', 'test':True, 'Bx':1.0}
+input_single_other = {**input_dict_base, 'name':'Brio&Wu', 'test':True, 'alpha':0.8, 'Tmax':0.2}
 run(**input_single_other)
 
 #################################### getting data after runs ####################################
