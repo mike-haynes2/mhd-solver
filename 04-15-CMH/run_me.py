@@ -43,16 +43,25 @@ def initialize(name, num_vars, nx, gamma, sigmoid_value=0.0):  # meshOBJ, alpha,
             # bx0 = 2. / np.sqrt(16 * np.arctan(1.)); by0 = 4. / np.sqrt(16 * np.arctan(1.)); bz0 = 2. / np.sqrt(16 * np.arctan(1.))
             # b_vec_pos = np.array([bx0, by0, bz0])
             # u_vec_pos = np.array([ux0, uy0, uz0])
-            e0 = (1. / (gamma - 1.)) - (1. / 2.)
-            meshOBJ[0, :, 0:(nx // 2)] = np.array([[1.08, 1.2 / 1.08, 0.01 / 1.08, 0.5 / 1.08, 1.0, 0.0, e0]]).T
-            meshOBJ[0, :, (nx // 2):nx] = np.array([[0.125, 0.0, 0.0, 0.0, -1.0, 0.0, e0 / 10.]]).T
+            #THIS IS THE TRUE ONE
+            e0_left = (1.08 / (gamma - 1.)) - ((3.6*3.6 + 4 + 4) / 2.)
+            e0_right = (1.0 / (gamma - 1.)) - ((16 + 4 + 4) / 2.)
+            meshOBJ[0, :, 0:(nx // 2)] = np.array([[1.08, 1.2 * 1.08, 0.01 * 1.08, 0.5 * 1.08, 3.6, 2.0, e0_left]]).T
+            meshOBJ[0, :, (nx // 2):nx] = np.array([[1.0, 0.0, 0.0, 0.0, 4.0, 2.0, e0_right]]).T
+
+            # THIS IS THE ONE THEY GRAPHED
+            # e0_left = (20.0 / (gamma - 1.)) - ((25 + 25) / 2.)
+            # e0_right = (2.0 / (gamma - 1.)) - ((25 + 25) / 2.)
+            # meshOBJ[0, :, 0:(nx // 2)] = np.array([[1., 10.0, 0.0, 0.0, 5.0, 0.0, e0_left]]).T
+            # meshOBJ[0, :, (nx // 2):nx] = np.array([[1.0, -10.0, 0.0, 0.0, 5.0, 0.0, e0_right]]).T
 
         case 'Brio&Wu':
 
-            e0 = (1. / (gamma - 1.)) - (1. / 2.) 
+            e0_left = (1. / (gamma - 1.)) - ((1. + 0.5625) / 2.)
+            e0_right = (.1 / (gamma - 1.)) - ((1. + 0.5625) / 2.)
 
-            meshOBJ[0, :, 0:(nx // 2)] = np.array([[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, e0]]).T
-            meshOBJ[0, :, (nx // 2):nx] = np.array([[0.125, 0.0, 0.0, 0.0, -1.0, 0.0, e0 / 10.]]).T 
+            meshOBJ[0, :, 0:(nx // 2)] = np.array([[1.0, 0.0, 0.0, 0.0, 1.0, 0.0, e0_left]]).T
+            meshOBJ[0, :, (nx // 2):nx] = np.array([[0.125, 0.0, 0.0, 0.0, -1.0, 0.0, e0_right]]).T
 
             # ro0_neg = 1.; pr0_neg = 1.
             # ux0 = 0.; uy0 = 0.; uz0 = 0.
@@ -192,7 +201,7 @@ def run(name='Brio&Wu', test=False, alpha=1.4, Tmax=.2,
 
 ### MODIFY HERE ###
 input_dict_base = {'name':'bruh', 'alpha':1.1, 'test':True, 'Tmax':0.2, 'num_vars':7, 'Bx':0.75,
-     'gamma':2, 'nx':800, 'n_plots':125, 'CFL_safety':200.,
+     'gamma':2.0, 'nx':800, 'n_plots':125, 'CFL_safety':200.,
      'length':2, 'alpha_test':False, 'sigmoid_value':0}
 
 ### TAKES INPUT_DICT_BASE AND MODIFIES ONLY THE VARIABLES SPECIFIED ###
@@ -205,8 +214,8 @@ input_dict_alpha = {**input_dict_base, 'name':'Brio&Wu','alpha_test':True, 'alph
 # run(**input_dict_alpha)
 
 # try Dai and Woodward case with Bx = 2, gamma = 5/3
-input_single_other = {**input_dict_base, 'name':'Dai&Woodward', 'test':True, 'alpha':0.8, 'Tmax':0.08, 'Bx':2.,'gamma':(5./3.)}
-
+# input_single_other = {**input_dict_base, 'name':'Dai&Woodward', 'test':True, 'alpha':0.8, 'Tmax':0.08, 'Bx':2.,'gamma':(5./3.), 'CFL_safety':500.,'n_plots':25, 'nx':800, 'length':1}
+input_single_other = {**input_dict_base, 'name':'Brio&Wu', 'test':True, 'alpha':1.4, 'Tmax':0.3, 'Bx':0.75, 'CFL_safety':500.,'n_plots':40, 'nx':800}
 run(**input_single_other)
 
 #################################### getting data after runs ####################################

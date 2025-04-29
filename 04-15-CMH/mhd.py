@@ -28,6 +28,7 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
     dt = dx / CFL_safety
     nt = int(Tmax / dt)
     lam = dt / dx
+    count_plotting = 0
 
     now = datetime.now()
 
@@ -81,8 +82,10 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
 
         # benchmarking output
         # should largely incorporate the animation and plotting routines we have already made
+
         if tL >= 0:
             if (tL % (nt // n_plots)) == 0:
+            # if count_plotting %  == 0:
                 percent = round((t / Tmax)*100.,2)
                 print('time t=',t)
                 print(r'progress is ', percent, r'% done')
@@ -109,6 +112,7 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
                     np.savez(f'alpha_test_{name}_{start_time}/case_{name}_alpha_{alpha}_time_{t}_timestep_{tL}.npz', **data)
                 if tL != 0:
                     CFL = meshOBJ[stagger_switch, 1, :].max() * dt / dx
+                    print('=' * 20, dt, '=' * 20)
                     print('CFL is',CFL)
                     # might be good to put a CFL=0 check to break the code ie
                     # if CFL == 0 or CFL == np.nan: break
@@ -123,19 +127,16 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
             raise ValueError('The variable "stagger_switch" must be either zero or unity!')
 
         # advance time
-        # goofy ahh 2 AM eigenvalue calculation
-        # this might depend on what layer we are using
-        # need to reconstruct pressure from
-        # B_square = np.dot( np.dot(meshOBJ[stagger_switch, 4, :], meshOBJ[stagger_switch, 5, :]),  np.ones_like(meshOBJ[stagger_switch, 5, :]) * Bx)
-        # pressure = (gamma - 1) * (meshOBJ[stagger_switch, 6, :] - np.dot( np.dot(meshOBJ[stagger_switch, 1, :], meshOBJ[stagger_switch, 2, :]),  meshOBJ[stagger_switch, 3, :]) / 2.
-        #                     - B_square / 2)
-        # a_square = gamma * np.divide(pressure , meshOBJ[stagger_switch, 0, :])
-        # c_ax = Bx / np.sqrt(meshOBJ[stagger_switch, 0, :])
-        # c_A_squared = np.divide(B_square, meshOBJ[stagger_switch, 0, :])
-        # c_f = .5 * ( a_square + c_A_squared + np.sqrt( np.power(a_square + c_A_squared, 2) - 4 * a_square * np.power(c_ax,2) ) )
-        # wave_speed = np.max(np.max(c_f), np.max(c_ax) )  # maybe only need one max around. too tired
-        # v_max = meshOBJ[stagger_switch, 1, :].max() + wave_speed
-        # dt = new_dt =  dx / v_max / CFL_safety if v_max != 0 else 1e-4 # if you wanted to do an adaptive time step with only the velocity
+        B_square = np.dot(meshOBJ[stagger_switch, 4, :], meshOBJ[stagger_switch, 4, :]) + np.dot(meshOBJ[stagger_switch, 4, :], meshOBJ[stagger_switch, 4, :]) + Bx*Bx
+        u_square  = np.dot(meshOBJ[stagger_switch, 1, :], meshOBJ[stagger_switch, 1, :]) + np.dot(meshOBJ[stagger_switch, 2, :], meshOBJ[stagger_switch, 2, :]) + np.dot(meshOBJ[stagger_switch, 3, :], meshOBJ[stagger_switch, 3, :])
+        pressure = (gamma - 1) * (meshOBJ[stagger_switch, 6, :] - u_square) / 2. - B_square / 2
+        a_square = gamma * np.divide(pressure , meshOBJ[stagger_switch, 0, :])
+        c_ax = Bx / np.sqrt(meshOBJ[stagger_switch, 0, :])
+        c_A_squared = np.divide(B_square, meshOBJ[stagger_switch, 0, :])
+        c_f = .5 * ( a_square + c_A_squared + np.sqrt( np.power(a_square + c_A_squared, 2) - 4 * a_square * np.power(c_ax,2) ) )
+        wave_speed = np.max([np.max(c_f), np.max(c_ax)])
+        v_max = meshOBJ[stagger_switch, 1, :].max() + wave_speed
+        dt =  dx / v_max if v_max != 0 else 1e-7
         t += dt
         tL += 1
 
