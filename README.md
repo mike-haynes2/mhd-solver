@@ -1,8 +1,11 @@
-#### mhd-solver: Computational Physics Term Project (PHYS 6260)                            
+### mhd-solver: Computational Physics Term Project (PHYS 6260)                            
 # A One-Dimensional, Distributed, Non-Oscillatory Ideal Magnetohydrodynamics Central Differ
-## Created 03/21                                                                           
+#### Created 03/21                                                                           
 ### C. Michael Haynes, Neil Baker, Kenneth Thompson, Corinne Hill, Eden Schapera
-## Updated, Finalized & Submitted 04/29
+#### Updated, Finalized & Submitted 04/29
+
+[note that all developmental work was carried out in the other branches, main represents only the final product
+
 
 
 
