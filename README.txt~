@@ -11,7 +11,6 @@
 
 ## mhd.py
 ### This file represents the kernel of the solver. It includes the methods described in our model description and the work of Balbas et al. (2004).
-### Note: mhd_adaptive.py is a clone of mhd.py, with the recently developed adaptive timestepping routines implemented in a preliminary sense.
 
 ## Library.py
 ### This file contains all of the helper functions defined to carry out specific routines.
