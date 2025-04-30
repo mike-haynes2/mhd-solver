@@ -215,7 +215,8 @@ input_dict_alpha = {**input_dict_base, 'name':'Brio&Wu','alpha_test':True, 'alph
 
 # try Dai and Woodward case with Bx = 2, gamma = 5/3
 # input_single_other = {**input_dict_base, 'name':'Dai&Woodward', 'test':True, 'alpha':0.8, 'Tmax':0.08, 'Bx':2.,'gamma':(5./3.), 'CFL_safety':500.,'n_plots':25, 'nx':800, 'length':1}
-input_single_other = {**input_dict_base, 'name':'Brio&Wu', 'test':True, 'alpha':1.4, 'Tmax':0.3, 'Bx':0.75, 'CFL_safety':500.,'n_plots':40, 'nx':800}
+input_single_other = {**input_dict_base, 'name':'Dai&Woodward', 'alpha':1.2, 'test':True,  
+                      'Tmax':0.08, 'Bx':2, 'CFL_safety':500.,'n_plots':200, 'gamma':(5./3.), 'nx':1000}
 run(**input_single_other)
 
 #################################### getting data after runs ####################################

@@ -1,8 +1,8 @@
 import numpy as np
 import math as m
 
-import os
-
+import warnings
+warnings.filterwarnings('ignore')
 
 from Library import minmod, calc_f, calc_f_cell, animate
 from datetime import datetime
@@ -28,7 +28,7 @@ def balbas_one_dimension(meshOBJ, alpha, Tmax, num_vars, Bx, gamma, nx, n_plots,
     dt = dx / CFL_safety
     nt = int(Tmax / dt)
     lam = dt / dx
-    count_plotting = 0
+
 
     now = datetime.now()
 

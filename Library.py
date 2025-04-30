@@ -3,7 +3,7 @@ import math as m
 
 from scipy import constants
 import matplotlib.pyplot as plt
-import configuration as c
+#import configuration as c
 import os
 
 
