@@ -4,7 +4,8 @@
 ### C. Michael Haynes, Neil Baker, Kenneth Thompson, Corinne Hill, Eden Schapera
 #### Updated, Finalized & Submitted 04/29
 
-[note that all developmental work was carried out in the other branches, main represents only the final product
+(note that all developmental work was carried out in the other branches, main represents only the final product)
+(see document entitled report_mhd.pdf for details about the methods and results associated with this program)
 
 
 
